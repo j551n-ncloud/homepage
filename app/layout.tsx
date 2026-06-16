@@ -10,7 +10,22 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Johannes Nguyen",
-  description: "IT Technician & Homelab Enthusiast — Apprentice IT Specialist at DKFZ",
+  description: "IT Technician & Homelab Enthusiast. Apprentice IT Specialist at DKFZ.",
+  metadataBase: new URL("https://j551n.com"),
+  openGraph: {
+    title: "Johannes Nguyen",
+    description: "IT Technician & Homelab Enthusiast. Apprentice IT Specialist at DKFZ.",
+    url: "https://j551n.com",
+    siteName: "Johannes Nguyen",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Johannes Nguyen" }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Johannes Nguyen",
+    description: "IT Technician & Homelab Enthusiast. Apprentice IT Specialist at DKFZ.",
+    images: ["/og-image.png"],
+  },
   icons: {
     icon: [
       { url: "/favicon.ico" },
