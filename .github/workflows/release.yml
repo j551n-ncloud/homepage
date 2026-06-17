@@ -49,6 +49,8 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          build-args: |
+            NEXT_PUBLIC_APP_VERSION=${{ github.ref_type == 'tag' && github.ref_name || 'dev' }}
 
       - name: Update release with image info
         if: startsWith(github.ref, 'refs/tags/')
