@@ -32,7 +32,7 @@ export default function Home() {
                   <strong>apprentice IT specialist at DKFZ</strong>, homelab operator, automation-first thinker.
                 </p>
                 <div className="hero-btns">
-                  <a href="#contact" className="btn btn-teal">Contact me</a>
+                  <a href="#contact" className="btn btn-fill">Contact me</a>
                   <a href="#about" className="btn btn-outline">About</a>
                 </div>
               </div>
