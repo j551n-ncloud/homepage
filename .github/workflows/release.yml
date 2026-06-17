@@ -11,7 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
 
     steps:
@@ -39,6 +39,7 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
 
       - name: Build and push
+        id: build
         uses: docker/build-push-action@v6
         with:
           context: .
@@ -48,3 +49,21 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Update release with image info
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG=${GITHUB_REF_NAME}
+          gh release edit "$TAG" --repo ${{ github.repository }} --notes "## Docker Image
+
+          \`\`\`
+          docker pull ghcr.io/j551n-ncloud/homepage:${TAG#v}
+          \`\`\`
+
+          **Image digest:** \`${{ steps.build.outputs.digest }}\`
+
+          **Tags:**
+          - \`ghcr.io/j551n-ncloud/homepage:latest\`
+          - \`ghcr.io/j551n-ncloud/homepage:${TAG#v}\`"
