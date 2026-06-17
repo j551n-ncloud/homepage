@@ -1,0 +1,7 @@
+services:
+  homepage-web:
+    image: repo.j551n.com/library/homepage-web:latest
+    container_name: homepage-web
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
