@@ -1,6 +1,6 @@
 services:
   homepage-web:
-    image: repo.j551n.com/library/homepage-web:latest
+    image: ghcr.io/j551n-ncloud/homepage:latest
     container_name: homepage-web
     restart: unless-stopped
     ports:
