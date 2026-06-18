@@ -78,20 +78,22 @@ section { padding: 5.5rem 0; border-top: 1px solid var(--rule); }
   border-top: none;
   overflow: hidden;
 }
-.hero-gradient-overlay {
+/* animated gradient sheen over the (static) photo */
+.hero-section::before {
+  content: "";
   position: absolute; inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 48%),
+    linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,.14) 55%, rgba(0,0,0,.20) 100%),
     linear-gradient(120deg,
-      rgba(8,12,14,.58) 0%,
-      rgba(0,71,179,.32) 26%,
-      rgba(8,15,17,.40) 50%,
-      rgba(94,234,212,.14) 74%,
-      rgba(8,12,14,.75) 100%);
+      rgba(8,12,14,.66) 0%,
+      rgba(0,71,179,.40) 26%,
+      rgba(8,15,17,.54) 50%,
+      rgba(94,234,212,.30) 74%,
+      rgba(8,12,14,.66) 100%);
   background-size: 100% 100%, 300% 300%;
   background-position: 0 0, 0% 50%;
-  animation: heroGradient 25s ease-in-out infinite;
+  animation: heroGradient 45s ease-in-out infinite;
 }
 @keyframes heroGradient {
   0%   { background-position: 0 0, 100% 50%; }
@@ -99,7 +101,7 @@ section { padding: 5.5rem 0; border-top: 1px solid var(--rule); }
   100% { background-position: 0 0, 100% 50%; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-gradient-overlay { animation: none; }
+  .hero-section::before { animation: none; }
 }
 .hero-inner { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; width: 100%; }
 .hero-name {

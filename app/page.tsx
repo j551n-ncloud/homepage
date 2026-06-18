@@ -13,7 +13,6 @@ export default function Home() {
 
       {/* HERO */}
       <section className="hero-section">
-        <div className="hero-gradient-overlay" aria-hidden="true" />
         <div className="hero-inner">
           <Reveal>
             <h1 className="hero-name">Johannes<br />Nguyen</h1>
