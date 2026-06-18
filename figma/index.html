@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Johannes Nguyen</title>
+<meta name="description" content="IT Technician & Homelab Enthusiast. Apprentice IT Specialist at DKFZ.">
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f6f6f4;
+  --surface: #ffffff;
+  --text: #141414;
+  --muted: #6c6c6c;
+  --rule: #ddddd8;
+  --accent: #0047b3;
+  --accent-light: #e8effa;
+  --label-w: 180px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+.nav-wrap {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--surface);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 clamp(1.5rem, 6vw, 5rem);
+  height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  box-shadow: 0 1px 0 var(--rule);
+  transition: box-shadow 250ms ease;
+}
+.nav-scrolled {
+  box-shadow: 0 1px 20px rgba(0,0,0,.09);
+}
+.nav-logo {
+  font-size: .8rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  text-decoration: none; color: var(--text);
+}
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  font-size: .75rem; font-weight: 500;
+  letter-spacing: .04em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; transition: color 150ms;
+}
+.nav-links a:hover { color: var(--text); }
+
+/* ── PAGE CONTAINER ── */
+.page { max-width: 1180px; margin: 0 auto; padding: 0 clamp(1.5rem, 6vw, 5rem); }
+
+/* ── SECTIONS ── */
+section { padding: 5.5rem 0; border-top: 1px solid var(--rule); }
+.section-row {
+  display: grid;
+  grid-template-columns: var(--label-w) 1fr;
+  gap: 0 4.5rem;
+  align-items: start;
+}
+.section-label {
+  font-size: .68rem; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted); padding-top: .3rem;
+  position: sticky; top: calc(56px + 1.5rem);
+}
+
+/* ── HERO ── */
+.hero-section {
+  position: relative;
+  background: url('assets/bg.jpg') center / cover no-repeat;
+  min-height: calc(100vh - 56px);
+  display: flex; flex-direction: column;
+  justify-content: flex-end;
+  padding: 5rem clamp(1.5rem, 6vw, 5rem);
+  border-top: none;
+  overflow: hidden;
+}
+/* animated gradient sheen over the (static) photo */
+.hero-section::before {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 48%),
+    linear-gradient(120deg,
+      rgba(8,12,14,.58) 0%,
+      rgba(0,71,179,.32) 26%,
+      rgba(8,15,17,.40) 50%,
+      rgba(94,234,212,.24) 74%,
+      rgba(8,12,14,.60) 100%);
+  background-size: 100% 100%, 300% 300%;
+  background-position: 0 0, 0% 50%;
+  animation: heroGradient 20s ease-in-out infinite;
+}
+@keyframes heroGradient {
+  0%   { background-position: 0 0, 0% 50%; }
+  50%  { background-position: 0 0, 100% 50%; }
+  100% { background-position: 0 0, 0% 50%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-section::before { animation: none; }
+}
+.hero-inner { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; width: 100%; }
+.hero-name {
+  font-size: clamp(3.25rem, 8vw, 7rem);
+  font-weight: 800; letter-spacing: -.04em;
+  line-height: .95; color: #fff;
+  margin-bottom: 2.5rem;
+}
+.hero-bottom {
+  display: grid;
+  grid-template-columns: var(--label-w) 1fr;
+  gap: 0 4.5rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid rgba(255,255,255,.25);
+  align-items: start;
+}
+.hero-bottom-left { display: flex; flex-direction: column; gap: .75rem; padding-top: .25rem; }
+.hero-role-tag {
+  display: inline-block;
+  background: rgba(255,255,255,.12);
+  color: #fff; border: 1px solid rgba(255,255,255,.25);
+  font-size: .72rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: .35rem .75rem; width: fit-content;
+}
+.hero-avail {
+  font-size: .72rem; font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: #5eead4; display: flex; align-items: center; gap: .4rem;
+}
+.avail-dot {
+  width: 5px; height: 5px; background: #5eead4;
+  border-radius: 50%; animation: pulse 2s infinite; flex-shrink: 0;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+.hero-right { display: flex; flex-direction: column; gap: 1.5rem; padding-top: .125rem; }
+.hero-headline {
+  font-size: clamp(.925rem, 1.4vw, 1.15rem);
+  font-weight: 400; color: rgba(255,255,255,.72);
+  line-height: 1.7; max-width: 600px;
+}
+.hero-headline strong { font-weight: 600; color: #fff; }
+.hero-btns { display: flex; gap: .75rem; }
+
+/* ── BUTTONS ── */
+.btn {
+  font-size: .72rem; font-weight: 700;
+  letter-spacing: .07em; text-transform: uppercase;
+  text-decoration: none; padding: .65rem 1.375rem;
+  cursor: pointer; display: inline-block;
+  transition: background 150ms, color 150ms, border-color 150ms;
+  border: 1px solid transparent;
+}
+.btn-fill { background: var(--accent); color: #fff; border-color: var(--accent); }
+.btn-fill:hover { background: #003899; border-color: #003899; }
+.btn-outline { background: rgba(255,255,255,.08); color: #fff; border-color: rgba(255,255,255,.35); }
+.btn-outline:hover { background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.6); }
+
+/* ── ABOUT ── */
+.about-text p {
+  font-size: .9375rem; line-height: 1.85;
+  color: #333; margin-bottom: 1.25rem; max-width: 620px;
+}
+.stats {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  border-top: 1px solid var(--rule); margin-top: 3rem;
+}
+.stat {
+  padding: 1.625rem 1.625rem 1.625rem 0;
+  border-right: 1px solid var(--rule);
+}
+.stat:first-child { padding-left: 0; }
+.stat:not(:first-child) { padding-left: 1.625rem; }
+.stat:last-child { border-right: none; }
+.stat-n {
+  font-size: 2.5rem; font-weight: 800;
+  letter-spacing: -.04em; color: var(--accent);
+  line-height: 1; margin-bottom: .375rem;
+}
+.stat-l { font-size: .725rem; color: var(--muted); line-height: 1.45; }
+
+/* ── SKILLS ── */
+.skills-intro { margin-bottom: 2.5rem; }
+.skills-intro h3 { font-size: .875rem; font-weight: 700; margin-bottom: .375rem; }
+.skills-intro p { font-size: .8125rem; color: var(--muted); line-height: 1.65; max-width: 560px; }
+
+.skills-groups { display: grid; grid-template-columns: repeat(4,1fr); gap: 2.5rem 2rem; align-items: start; }
+.skill-group-label {
+  font-size: .68rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: .75rem;
+  padding-bottom: .5rem; border-bottom: 1px solid var(--rule);
+}
+.skill-item { padding: .45rem 0; border-bottom: 1px solid var(--rule); }
+.skill-item:first-of-type { padding-top: 0; }
+.skill-item:last-child { border-bottom: none; padding-bottom: 0; }
+.skill-item-name {
+  font-size: .78rem; font-weight: 600; color: var(--text); margin-bottom: .15rem;
+  text-decoration: none; display: inline-block; transition: color 150ms;
+}
+a.skill-item-name { text-decoration: none; }
+a.skill-item-name:hover { color: var(--accent); }
+.skill-item-tags { font-size: .63rem; color: var(--muted); opacity: .75; font-family: monospace; line-height: 1.4; }
+a.skill-group-label {
+  text-decoration: none; display: block; transition: color 150ms, opacity 150ms;
+}
+a.skill-group-label:hover { color: var(--accent); opacity: 1; }
+
+/* ── EXPERIENCE ── */
+.exp-list { display: flex; flex-direction: column; }
+.exp-item {
+  display: grid; grid-template-columns: 130px 1fr;
+  gap: 0 2.5rem; padding: 1.375rem 0;
+  border-bottom: 1px solid var(--rule); align-items: baseline;
+  transition: background 200ms ease;
+}
+.exp-item:first-child { border-top: 1px solid var(--rule); }
+.exp-item:hover { background: rgba(0,71,179,.03); }
+.exp-item:not(.exp-current):hover .exp-company { color: var(--accent); transition: color 200ms ease; }
+.exp-period { font-size: .72rem; color: var(--muted); font-family: monospace; font-feature-settings: 'tnum'; }
+.exp-company { font-size: .9rem; font-weight: 600; margin-bottom: .2rem; }
+.exp-company a { text-decoration: none; color: inherit; transition: color 150ms; }
+.exp-company a:hover { color: var(--accent); }
+.exp-role { font-size: .8rem; color: var(--muted); }
+.exp-current .exp-company { color: var(--accent); }
+.exp-current .exp-period { color: var(--accent); font-weight: 600; }
+
+/* ── CONTACT ── */
+.contact-text p {
+  font-size: .9375rem; line-height: 1.85;
+  color: #333; margin-bottom: 1.25rem; max-width: 600px;
+}
+.contact-avail {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-size: .72rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: #2a7a2a; margin-bottom: 2rem;
+}
+.contact-list {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  border-top: 2px solid var(--text);
+}
+.contact-item {
+  padding: 1.5rem 2rem 1.5rem 0;
+  border-right: 1px solid var(--rule);
+  text-decoration: none; color: var(--text);
+  cursor: pointer; display: block; transition: color 150ms;
+}
+.contact-item:nth-child(2) { padding-left: 2rem; }
+.contact-item:last-child { border-right: none; padding-left: 2rem; }
+.contact-item:hover .ci-value { color: var(--accent); }
+.ci-label {
+  font-size: .65rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: .4rem;
+}
+.ci-value { font-size: .875rem; font-weight: 500; transition: color 150ms; }
+
+/* ── FOOTER ── */
+.footer-wrap {
+  background: var(--surface);
+  border-top: 1px solid var(--rule);
+  padding: 2rem clamp(1.5rem, 6vw, 5rem) 1.25rem;
+  display: flex; justify-content: space-between; align-items: center; gap: 2rem;
+}
+.footer-brand-name { font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text); }
+.footer-meta { display: flex; align-items: center; gap: 1.5rem; flex-shrink: 0; }
+.footer-meta a { font-size: .7rem; color: var(--muted); text-decoration: none; transition: color 150ms; letter-spacing: .03em; }
+.footer-meta a:hover { color: var(--text); }
+.footer-meta span { font-size: .7rem; color: var(--muted); }
+.footer-services {
+  background: var(--bg);
+  border-top: 1px solid var(--rule);
+  padding: .875rem clamp(1.5rem, 6vw, 5rem);
+  display: flex; align-items: center; gap: 2rem;
+}
+.footer-services a {
+  font-size: .7rem; font-weight: 500; color: var(--muted);
+  text-decoration: none; letter-spacing: .03em;
+  transition: color 150ms;
+  display: flex; align-items: center; gap: .35rem;
+}
+.footer-services a:hover { color: var(--accent); }
+.footer-services svg { width: 13px; height: 13px; stroke: currentColor; }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(10px); transition: opacity 550ms ease, transform 550ms ease; }
+.reveal.visible { opacity: 1; transform: none; }
+.hero-section .reveal { transform: translateY(28px); transition-duration: 750ms; }
+.hero-section .reveal.visible { transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  :root { --label-w: 130px; }
+  .skills-groups { grid-template-columns: repeat(2,1fr); }
+  .stats { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  section { padding: 3.5rem 0; }
+  .section-row, .hero-bottom { grid-template-columns: 1fr; gap: 1.25rem; }
+  .section-label { position: static; }
+  .hero-btns { flex-direction: column; width: fit-content; }
+  .skills-groups, .stats, .contact-list { grid-template-columns: 1fr; }
+  .contact-item { border-right: none; border-bottom: 1px solid var(--rule); padding: 1rem 0 !important; }
+  .exp-item { grid-template-columns: 1fr; gap: .3rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav-wrap" id="nav">
+  <a class="nav-logo" href="#top">Johannes Nguyen</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero-section" id="top" data-screen-label="Hero">
+  <div class="hero-inner">
+    <div class="reveal">
+      <h1 class="hero-name">Johannes<br>Nguyen</h1>
+    </div>
+    <div class="reveal" data-delay="300">
+      <div class="hero-bottom">
+        <div class="hero-bottom-left">
+          <div class="hero-role-tag">IT Specialist</div>
+          <div class="hero-avail">
+            <div class="avail-dot"></div>
+            Available
+          </div>
+        </div>
+        <div class="hero-right">
+          <p class="hero-headline">
+            From automotive diagnostics to enterprise systems integration <strong>apprentice IT specialist at DKFZ</strong>, homelab operator, automation-first thinker.
+          </p>
+          <div class="hero-btns">
+            <a href="#contact" class="btn btn-fill">Contact me</a>
+            <a href="#about" class="btn btn-outline">About</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="page">
+
+  <!-- ABOUT -->
+  <section id="about" data-screen-label="About">
+    <div class="section-row">
+      <div class="reveal section-label">About</div>
+      <div class="reveal">
+        <div class="about-text">
+          <p>As an apprentice system integrator at the German Cancer Research Center, I work with Linux, automation, and resilient infrastructure, bringing precision and clarity to both everyday operations and long-term platform planning.</p>
+          <p>Every chapter sharpened my ability to diagnose complex systems, collaborate with specialists, and keep critical services available. These are skills I now apply daily in IT.</p>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-n" data-count="4" data-suffix="+">0</div>
+            <div class="stat-l">Years Linux &amp; Windows Server in production</div>
+          </div>
+          <div class="stat">
+            <div class="stat-n" data-count="12" data-suffix="+">0</div>
+            <div class="stat-l">Self-hosted services deployed &amp; maintained</div>
+          </div>
+          <div class="stat">
+            <div class="stat-n" data-count="3" data-suffix="">0</div>
+            <div class="stat-l">Proxmox nodes (N-Serv001–003)</div>
+          </div>
+          <div class="stat">
+            <div class="stat-n" style="font-size:1.3rem;padding-top:.5rem;">Automation-first</div>
+            <div class="stat-l">Ansible, GitHub Actions, GitLab CI/CD</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" data-screen-label="Skills">
+    <div class="section-row">
+      <div class="reveal section-label">Skills</div>
+      <div>
+        <div class="reveal">
+          <div class="skills-intro">
+            <h3>Systems work with end-to-end ownership</h3>
+            <p>From ops fundamentals to developer workflows, I focus on reliable platforms, automation, and observability.</p>
+          </div>
+        </div>
+        <div class="skills-groups">
+          <div class="reveal">
+            <div>
+              <a class="skill-group-label" href="https://blog.j551n.com/tag/linux/" target="_blank" rel="noopener noreferrer">Sysadmin</a>
+              <div class="skill-item">
+                <a class="skill-item-name" href="https://blog.j551n.com/tag/linux/" target="_blank" rel="noopener noreferrer">Linux</a>
+                <div class="skill-item-tags">systemd, RHEL, cgroups, auditd</div>
+              </div>
+              <div class="skill-item">
+                <a class="skill-item-name" href="https://blog.j551n.com/tag/bash/" target="_blank" rel="noopener noreferrer">Bash Scripting</a>
+                <div class="skill-item-tags">Shell utilities, performance optimization</div>
+              </div>
+              <div class="skill-item">
+                <a class="skill-item-name" href="https://blog.j551n.com/tag/monitoring/" target="_blank" rel="noopener noreferrer">Monitoring</a>
+                <div class="skill-item-tags">Grafana, Prometheus, performance tuning</div>
+              </div>
+              <div class="skill-item">
+                <a class="skill-item-name" href="https://blog.j551n.com/tag/hardware/" target="_blank" rel="noopener noreferrer">Dell Hardware</a>
+                <div class="skill-item-tags">iDRAC, PowerEdge, RAID, hardware diagnostics</div>
+              </div>
+            </div>
+          </div>
+          <div class="reveal" data-delay="100">
+            <div>
+              <a class="skill-group-label" href="https://blog.j551n.com/tag/devops/" target="_blank" rel="noopener noreferrer">DevOps</a>
+              <div class="skill-item">
+                <a class="skill-item-name" href="https://blog.j551n.com/tag/ci-cd/" target="_blank" rel="noopener noreferrer">CI/CD</a>
+                <div class="skill-item-tags">GitHub Actions, GitLab CI/CD, Git</div>
+              </div>
+              <div class="skill-item">
+                <a class="skill-item-name" href="https://blog.j551n.com/tag/ansible/" target="_blank" rel="noopener noreferrer">Ansible / AWX</a>
+                <div class="skill-item-tags">Playbook development, AWX Operator, automation</div>
+              </div>
+              <div class="skill-item">
+                <a class="skill-item-name" href="https://blog.j551n.com/tag/python/" target="_blank" rel="noopener noreferrer">Python &amp; SQL</a>
+                <div class="skill-item-tags">FastAPI, Pandas, PostgreSQL, MySQL</div>
+              </div>
+              <div class="skill-item">
+                <a class="skill-item-name" href="https://blog.j551n.com/tag/development/" target="_blank" rel="noopener noreferrer">Fullstack Dev</a>
+                <div class="skill-item-tags">TypeScript, Supabase, Vite, Express</div>
+              </div>
+              <div class="skill-item">
+                <a class="skill-item-name" href="https://blog.j551n.com/tag/ai/" target="_blank" rel="noopener noreferrer">AI &amp; LLMs</a>
+                <div class="skill-item-tags">Open WebUI, self-hosted LLMs, prompt engineering</div>
+              </div>
+            </div>
+          </div>
+          <div class="reveal" data-delay="200">
+            <div>
+              <a class="skill-group-label" href="https://blog.j551n.com/tag/virtualization/" target="_blank" rel="noopener noreferrer">Virtualization</a>
+              <div class="skill-item">
+                <a class="skill-item-name" href="https://blog.j551n.com/tag/proxmox/" target="_blank" rel="noopener noreferrer">Proxmox VE</a>
+                <div class="skill-item-tags">GPU passthrough, Ceph, clustering, HA</div>
+              </div>
+              <div class="skill-item">
+                <a class="skill-item-name" href="https://blog.j551n.com/tag/vmware/" target="_blank" rel="noopener noreferrer">VMware</a>
+                <div class="skill-item-tags">ESXi, Proxmox migration</div>
+              </div>
+              <div class="skill-item">
+                <a class="skill-item-name" href="https://blog.j551n.com/my-homelab/" target="_blank" rel="noopener noreferrer">Homelab</a>
+                <div class="skill-item-tags">Self-hosted services, Tailscale, LSF</div>
+              </div>
+            </div>
+          </div>
+          <div class="reveal" data-delay="300">
+            <div>
+              <a class="skill-group-label" href="https://blog.j551n.com/tag/infrastructure/" target="_blank" rel="noopener noreferrer">Infrastructure</a>
+              <div class="skill-item">
+                <a class="skill-item-name" href="https://blog.j551n.com/tag/networking/" target="_blank" rel="noopener noreferrer">Networking</a>
+                <div class="skill-item-tags">VLANs, LACP, routing, IPAM, Netbox, Proxmox SDN</div>
+              </div>
+              <div class="skill-item">
+                <a class="skill-item-name" href="https://blog.j551n.com/tag/kubernetes/" target="_blank" rel="noopener noreferrer">Containers &amp; K8s</a>
+                <div class="skill-item-tags">Docker Compose, K3S, Helm, custom operators</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" data-screen-label="Experience">
+    <div class="section-row">
+      <div class="reveal section-label">Experience</div>
+      <div class="reveal">
+        <div class="exp-list">
+          <div class="exp-item exp-current">
+            <div class="exp-period">2022 – Present</div>
+            <div>
+              <div class="exp-company"><a href="https://blog.j551n.com/dkfz/" target="_blank" rel="noopener noreferrer">German Cancer Research Center (DKFZ)</a></div>
+              <div class="exp-role">Apprentice IT Specialist for System Integration</div>
+            </div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-period">2021 – 2022</div>
+            <div>
+              <div class="exp-company"><a href="https://blog.j551n.com/voegele/" target="_blank" rel="noopener noreferrer">Rheingönheim Vögele</a></div>
+              <div class="exp-role">Commercial Vehicle Mechanic</div>
+            </div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-period">2017 – 2021</div>
+            <div>
+              <div class="exp-company"><a href="https://blog.j551n.com/mercedes-benz/" target="_blank" rel="noopener noreferrer">Mercedes-Benz Mannheim</a></div>
+              <div class="exp-role">Automotive Mechanic Apprentice</div>
+            </div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-period">2016</div>
+            <div>
+              <div class="exp-company"><a href="https://blog.j551n.com/basf/" target="_blank" rel="noopener noreferrer">BASF Ludwigshafen</a></div>
+              <div class="exp-role">Computer Science Internship</div>
+            </div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-period">2016</div>
+            <div>
+              <div class="exp-company"><a href="https://blog.j551n.com/porsche/" target="_blank" rel="noopener noreferrer">Porsche Weissach</a></div>
+              <div class="exp-role">BORS Prototyping Internship</div>
+            </div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-period">2015</div>
+            <div>
+              <div class="exp-company"><a href="https://blog.j551n.com/trw/" target="_blank" rel="noopener noreferrer">TRW Radolfzell</a></div>
+              <div class="exp-role">Production &amp; Material Testing Internship</div>
+            </div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-period">2013</div>
+            <div>
+              <div class="exp-company"><a href="https://blog.j551n.com/grn/" target="_blank" rel="noopener noreferrer">GRN Schwetzingen</a></div>
+              <div class="exp-role">Computer Science Internship</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" data-screen-label="Contact">
+    <div class="section-row">
+      <div class="reveal section-label">Contact</div>
+      <div class="reveal">
+        <div class="contact-text">
+          <p>I am deepening my expertise in automation, observability, and resilient platform design while bringing the same discipline from automotive diagnostics into modern infrastructure work.</p>
+          <div class="contact-avail">
+            <div class="avail-dot" style="background:#2a7a2a;"></div>
+            Open to opportunities matching systems work
+          </div>
+        </div>
+        <div class="contact-list">
+          <div class="contact-item" id="email-copy" style="cursor:pointer;">
+            <div class="ci-label">Email</div>
+            <div class="ci-value" id="email-value">johannes.nguyen@j551n.com</div>
+          </div>
+          <a class="contact-item" href="https://github.com/j551n-ncloud" target="_blank" rel="noopener noreferrer">
+            <div class="ci-label">GitHub</div>
+            <div class="ci-value">j551n-ncloud</div>
+          </a>
+          <a class="contact-item" href="https://www.linkedin.com/in/johannesquangminh" target="_blank" rel="noopener noreferrer">
+            <div class="ci-label">LinkedIn</div>
+            <div class="ci-value">johannesquangminh</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<div class="reveal">
+  <footer class="footer-wrap">
+    <span class="footer-brand-name">Johannes Nguyen · j551n.com</span>
+    <div class="footer-meta">
+      <span>© 2026</span>
+      <a href="https://github.com/j551n-ncloud/homepage/releases" target="_blank" rel="noopener noreferrer">v2026</a>
+      <a href="legal/notice.html">Impressum</a>
+      <a href="legal/privacy.html">Privacy</a>
+    </div>
+  </footer>
+  <div class="footer-services">
+    <a href="https://gitlab.j551n.com" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path></svg>
+      <span>GitLab</span>
+    </a>
+    <a href="https://blog.j551n.com" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+      <span>Blog</span>
+    </a>
+    <a href="https://docu.j551n.com" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+      <span>Docs</span>
+    </a>
+  </div>
+</div>
+
+<script>
+// ── NAV scroll shadow ──
+(function () {
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('nav-scrolled', window.scrollY > 8);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+
+// ── REVEAL on intersect ──
+(function () {
+  const els = document.querySelectorAll('.reveal');
+  els.forEach((el) => {
+    const d = el.getAttribute('data-delay');
+    if (d) el.style.transitionDelay = d + 'ms';
+  });
+  if (!('IntersectionObserver' in window)) {
+    els.forEach((el) => el.classList.add('visible'));
+    return;
+  }
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.06 });
+  els.forEach((el) => obs.observe(el));
+})();
+
+// ── COUNTER count-up ──
+(function () {
+  const counters = document.querySelectorAll('[data-count]');
+  const animate = (el) => {
+    const to = parseInt(el.getAttribute('data-count'), 10);
+    const suffix = el.getAttribute('data-suffix') || '';
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      el.textContent = to + suffix;
+      return;
+    }
+    const duration = 1200;
+    const start = performance.now();
+    const tick = (now) => {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(eased * to) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        animate(e.target);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  counters.forEach((c) => obs.observe(c));
+})();
+
+// ── EMAIL copy ──
+(function () {
+  const EMAIL = 'johannes.nguyen@j551n.com';
+  const item = document.getElementById('email-copy');
+  const value = document.getElementById('email-value');
+  if (!item) return;
+  item.addEventListener('click', () => {
+    navigator.clipboard && navigator.clipboard.writeText(EMAIL).then(() => {
+      value.textContent = 'Copied!';
+      setTimeout(() => { value.textContent = EMAIL; }, 2000);
+    });
+  });
+})();
+</script>
+
+<template id="__bundler_thumbnail">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#141414"/>
+  <text x="50" y="150" fill="#ffffff" font-family="Inter, sans-serif" font-size="52" font-weight="800" letter-spacing="-2">JN</text>
+  <rect x="50" y="170" width="120" height="3" fill="#0047b3"/>
+</svg>
+</template>
+
+</body>
+</html>
