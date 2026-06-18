@@ -91,7 +91,7 @@ section { padding: 5.5rem 0; border-top: 1px solid var(--rule); }
       rgba(8,12,14,.75) 100%);
   background-size: 100% 100%, 300% 300%;
   background-position: 0 0, 0% 50%;
-  animation: heroGradient 40s ease-in-out infinite;
+  animation: heroGradient 25s ease-in-out infinite;
 }
 @keyframes heroGradient {
   0%   { background-position: 0 0, 100% 50%; }
