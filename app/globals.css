@@ -69,16 +69,39 @@ section { padding: 5.5rem 0; border-top: 1px solid var(--rule); }
 
 /* ── HERO ── */
 .hero-section {
-  background:
-    linear-gradient(rgba(0,0,0,.22), rgba(0,0,0,.38)),
-    url('/bg.jpg') center / cover no-repeat;
+  position: relative;
+  background: url('/bg.jpg') center / cover no-repeat;
   min-height: calc(100vh - 56px);
   display: flex; flex-direction: column;
   justify-content: flex-end;
   padding: 5rem clamp(1.5rem, 6vw, 5rem);
   border-top: none;
+  overflow: hidden;
 }
-.hero-inner { max-width: 1180px; margin: 0 auto; width: 100%; }
+.hero-gradient-overlay {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 48%),
+    linear-gradient(120deg,
+      rgba(8,12,14,.58) 0%,
+      rgba(0,71,179,.32) 26%,
+      rgba(8,15,17,.40) 50%,
+      rgba(94,234,212,.14) 74%,
+      rgba(8,12,14,.75) 100%);
+  background-size: 100% 100%, 300% 300%;
+  background-position: 0 0, 0% 50%;
+  animation: heroGradient 40s ease-in-out infinite;
+}
+@keyframes heroGradient {
+  0%   { background-position: 0 0, 100% 50%; }
+  50%  { background-position: 0 0, 0% 50%; }
+  100% { background-position: 0 0, 100% 50%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-gradient-overlay { animation: none; }
+}
+.hero-inner { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; width: 100%; }
 .hero-name {
   font-size: clamp(3.25rem, 8vw, 7rem);
   font-weight: 800; letter-spacing: -.04em;
