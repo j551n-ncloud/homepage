@@ -3,6 +3,7 @@ import { GitBranch, BookOpen, BookMarked } from "lucide-react";
 import Nav from "@/components/Nav";
 import Reveal from "@/components/Reveal";
 import EmailCopy from "@/components/EmailCopy";
+import { version } from "@/package.json";
 import Counter from "@/components/Counter";
 
 export default function Home() {
@@ -31,7 +32,7 @@ export default function Home() {
                   <strong>apprentice IT specialist at DKFZ</strong>, homelab operator, automation-first thinker.
                 </p>
                 <div className="hero-btns">
-                  <a href="#contact" className="btn btn-fill">Contact me</a>
+                  <a href="#contact" className="btn btn-teal">Contact me</a>
                   <a href="#about" className="btn btn-outline">About</a>
                 </div>
               </div>
@@ -259,7 +260,8 @@ export default function Home() {
         <footer className="footer-wrap">
           <span className="footer-brand-name">Johannes Nguyen · j551n.com</span>
           <div className="footer-meta">
-            <span>© 2025</span>
+            <span>© 2026</span>
+            <a href={`https://github.com/j551n-ncloud/homepage/releases/tag/v${version}`} target="_blank" rel="noopener noreferrer">v{version}</a>
             <Link href="/legal/notice">Impressum</Link>
             <Link href="/legal/privacy">Privacy</Link>
           </div>
