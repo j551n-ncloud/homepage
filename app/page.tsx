@@ -3,7 +3,7 @@ import { GitBranch, BookOpen, BookMarked } from "lucide-react";
 import Nav from "@/components/Nav";
 import Reveal from "@/components/Reveal";
 import EmailCopy from "@/components/EmailCopy";
-const version = process.env.NEXT_PUBLIC_APP_VERSION ?? "dev";
+const version = (process.env.NEXT_PUBLIC_APP_VERSION ?? "dev").replace(/^v/, "");
 import Counter from "@/components/Counter";
 
 export default function Home() {
