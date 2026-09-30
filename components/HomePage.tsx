@@ -61,7 +61,7 @@ export default async function HomePage({ lang }: { lang: Lang }) {
   const t = content[lang];
   const posts = await getLatestPosts(3);
   const liveTags = await getLiveTags(
-    t.skills.groups.flatMap((g) => [g.tag, ...g.items.map((i) => i.tag)]).filter((x): x is string => !!x),
+    t.skills.groups.flatMap((g) => g.items.map((i) => i.tag)).filter((x): x is string => !!x),
   );
   const linkFor = (x: { href?: string; tag?: string }) =>
     x.href ?? (x.tag && liveTags.has(x.tag) ? tagUrl(x.tag) : undefined);
@@ -146,9 +146,7 @@ export default async function HomePage({ lang }: { lang: Lang }) {
                 {t.skills.groups.map((g, i) => (
                   <Reveal delay={(i % 3) * 100} key={g.label}>
                     <div>
-                      {linkFor(g)
-                        ? <a className="skill-group-label" href={linkFor(g)} target="_blank" rel="noopener noreferrer">{g.label}</a>
-                        : <div className="skill-group-label">{g.label}</div>}
+                      <a className="skill-group-label" href={`https://blog.j551n.com/topics/#${g.topic}`} target="_blank" rel="noopener noreferrer">{g.label}</a>
                       {g.items.map((s) => (
                         <div className="skill-item" key={s.name}>
                           {linkFor(s)

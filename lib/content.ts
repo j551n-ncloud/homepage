@@ -3,7 +3,8 @@ export type Lang = "en" | "de";
 type Link = { href: string; label: string };
 // tag: blog tag slug, linked only while that tag page is public (see getLiveTags)
 type SkillItem = { name: string; tags: string; href?: string; tag?: string };
-type SkillGroup = { label: string; tag?: string; items: SkillItem[] };
+// topic: anchor of this category on blog.j551n.com/topics/, every label links there
+type SkillGroup = { label: string; topic: string; items: SkillItem[] };
 type Project = {
   kind: string;
   title: string;
@@ -34,7 +35,7 @@ const gh = "https://github.com/j551n-ncloud";
 const skillGroups = (de: boolean): SkillGroup[] => [
   {
     label: "Sysadmin",
-    tag: "linux",
+    topic: "sysadmin",
     items: [
       { name: "Linux", tags: "systemd, RHEL, Debian, cgroups, auditd", tag: "linux" },
       { name: de ? "Bash-Scripting" : "Bash Scripting", tags: de ? "Shell-Tools, Automatisierung" : "Shell utilities, automation" },
@@ -44,7 +45,7 @@ const skillGroups = (de: boolean): SkillGroup[] => [
   },
   {
     label: "DevOps",
-    tag: "devops",
+    topic: "devops",
     items: [
       { name: "Ansible / AWX", tags: de ? "Eigene Rollen, Playbooks, AWX Operator, Kickstart" : "Own roles, playbooks, AWX Operator, Kickstart", tag: "ansible" },
       { name: "CI/CD", tags: "GitLab CI/CD, GitHub Actions, Git", tag: "ci-cd" },
@@ -55,7 +56,7 @@ const skillGroups = (de: boolean): SkillGroup[] => [
   },
   {
     label: de ? "Container & Virtualisierung" : "Containers & Virtualization",
-    tag: "virtualization",
+    topic: "containers-and-virtualization",
     items: [
       { name: "Proxmox VE & PBS", tags: "HA, Ceph, SDN, GPU passthrough" },
       { name: "Kubernetes", tags: "k3s, Helm, " + (de ? "Operatoren" : "operators") },
@@ -65,6 +66,7 @@ const skillGroups = (de: boolean): SkillGroup[] => [
   },
   {
     label: "Identity & Security",
+    topic: "identity-and-security",
     items: [
       { name: de ? "Verzeichnis & SSO" : "Directory & SSO", tags: "LDAP/AD, ADFS, OIDC, Pocket ID", tag: "identity" },
       { name: "Security", tags: "CrowdSec, Trivy, firewalld, TLS/PKI", tag: "security" },
@@ -72,6 +74,7 @@ const skillGroups = (de: boolean): SkillGroup[] => [
   },
   {
     label: "Observability",
+    topic: "observability",
     items: [
       { name: "Logging", tags: de ? "Loki, Grafana Alloy (clusterweit)" : "Loki, Grafana Alloy (cluster-wide)" },
       { name: "Monitoring", tags: "Grafana, Prometheus, Checkmk" },
@@ -79,7 +82,7 @@ const skillGroups = (de: boolean): SkillGroup[] => [
   },
   {
     label: de ? "Infrastruktur" : "Infrastructure",
-    tag: "infrastructure",
+    topic: "infrastructure",
     items: [
       { name: de ? "Netzwerk" : "Networking", tags: "VLANs, LACP, NetBox, Proxmox SDN, Tailscale" },
       { name: "Storage", tags: "IBM ESS, Ceph, NFS" },
