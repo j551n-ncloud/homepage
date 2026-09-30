@@ -4,6 +4,7 @@ import Nav from "@/components/Nav";
 
 export const metadata: Metadata = {
   title: "Privacy Statement — Johannes Nguyen",
+  alternates: { canonical: "/legal/privacy" },
 };
 
 export default function Privacy() {

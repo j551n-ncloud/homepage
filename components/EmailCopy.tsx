@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const EMAIL = "johannes.nguyen@j551n.com";
 
-export default function EmailCopy() {
+export default function EmailCopy({ copiedLabel = "Copied!" }: { copiedLabel?: string }) {
   const [copied, setCopied] = useState(false);
 
   function handleClick() {
@@ -28,7 +28,7 @@ export default function EmailCopy() {
       aria-label={`Copy email address ${EMAIL}`}
     >
       <div className="ci-label">Email</div>
-      <div className="ci-value">{copied ? "Copied!" : EMAIL}</div>
+      <div className="ci-value">{copied ? copiedLabel : EMAIL}</div>
     </button>
   );
 }

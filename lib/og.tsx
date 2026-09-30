@@ -2,11 +2,8 @@ import { ImageResponse } from "next/og";
 import fs from "fs";
 import path from "path";
 
-export const alt = "Johannes Nguyen";
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
-
-export default function OGImage() {
+// Shared by the EN and DE route groups, each has its own opengraph-image.tsx calling this
+export function renderOGImage() {
   const bgData = fs.readFileSync(path.join(process.cwd(), "public/bg.jpg"));
   const bgBase64 = `data:image/jpeg;base64,${bgData.toString("base64")}`;
 
@@ -23,7 +20,8 @@ export default function OGImage() {
           fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
         }}
       >
-        {/* background image */}
+        {/* background image, Satori needs a plain img */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={bgBase64}
           alt=""
@@ -83,6 +81,6 @@ export default function OGImage() {
         </div>
       </div>
     ),
-    { ...size }
+    { width: 1200, height: 630 }
   );
 }

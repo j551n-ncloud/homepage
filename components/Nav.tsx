@@ -2,9 +2,13 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { content, type Lang } from "@/lib/content";
 
-export default function Nav() {
+export default function Nav({ lang = "en" }: { lang?: Lang }) {
   const [scrolled, setScrolled] = useState(false);
+  const t = content[lang];
+  // anchors point at the home page so they also work from the legal pages
+  const home = lang === "de" ? "/de" : "/";
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 8);
@@ -14,12 +18,14 @@ export default function Nav() {
 
   return (
     <nav className={`nav-wrap${scrolled ? " nav-scrolled" : ""}`}>
-      <Link className="nav-logo" href="/">Johannes Nguyen</Link>
+      <Link className="nav-logo" href={home}>Johannes Nguyen</Link>
       <ul className="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li className="nav-hide-sm"><a href={`${home}#about`}>{t.nav.about}</a></li>
+        <li><a href={`${home}#skills`}>{t.nav.skills}</a></li>
+        <li><a href={`${home}#projects`}>{t.nav.projects}</a></li>
+        <li className="nav-hide-sm"><a href={`${home}#experience`}>{t.nav.experience}</a></li>
+        <li><a href={`${home}#contact`}>{t.nav.contact}</a></li>
+        <li><a className="nav-lang" href={t.langSwitch.href} hrefLang={lang === "de" ? "en" : "de"} aria-label={t.langSwitch.aria}>{t.langSwitch.label}</a></li>
       </ul>
     </nav>
   );

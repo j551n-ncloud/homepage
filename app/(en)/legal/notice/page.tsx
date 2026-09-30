@@ -4,6 +4,7 @@ import Nav from "@/components/Nav";
 
 export const metadata: Metadata = {
   title: "Impressum — Johannes Nguyen",
+  alternates: { canonical: "/legal/notice" },
 };
 
 export default function Impressum() {

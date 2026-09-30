@@ -48,6 +48,12 @@ body {
   color: var(--muted); text-decoration: none; transition: color 150ms;
 }
 .nav-links a:hover { color: var(--text); }
+.nav-links a.nav-lang {
+  color: var(--text); font-weight: 700;
+  border: 1px solid var(--rule); padding: .2rem .45rem;
+  transition: border-color 150ms, color 150ms;
+}
+.nav-links a.nav-lang:hover { border-color: var(--accent); color: var(--accent); }
 
 /* ── PAGE CONTAINER ── */
 .page { max-width: 1180px; margin: 0 auto; padding: 0 clamp(1.5rem, 6vw, 5rem); }
@@ -190,7 +196,7 @@ section { padding: 5.5rem 0; border-top: 1px solid var(--rule); }
 .skills-intro h3 { font-size: .875rem; font-weight: 700; margin-bottom: .375rem; }
 .skills-intro p { font-size: .8125rem; color: var(--muted); line-height: 1.65; max-width: 560px; }
 
-.skills-groups { display: grid; grid-template-columns: repeat(4,1fr); gap: 2.5rem 2rem; align-items: start; }
+.skills-groups { display: grid; grid-template-columns: repeat(3,1fr); gap: 2.5rem 2rem; align-items: start; }
 .skill-group-label {
   font-size: .68rem; font-weight: 700;
   letter-spacing: .12em; text-transform: uppercase;
@@ -211,6 +217,46 @@ a.skill-group-label {
   text-decoration: none; display: block; transition: color 150ms, opacity 150ms;
 }
 a.skill-group-label:hover { color: var(--accent); opacity: 1; }
+
+/* ── PROJECTS ── */
+.projects-grid {
+  display: grid; grid-template-columns: repeat(2,1fr);
+  border-top: 2px solid var(--text);
+}
+.projects-grid > .reveal { border-bottom: 1px solid var(--rule); }
+.projects-grid > .reveal:nth-child(odd) { border-right: 1px solid var(--rule); }
+.project {
+  height: 100%; display: flex; flex-direction: column;
+  padding: 1.75rem 2rem 1.5rem 0;
+  transition: background 200ms ease;
+}
+.projects-grid > .reveal:nth-child(even) .project { padding-left: 2rem; padding-right: 0; }
+.project-kind {
+  font-size: .62rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: .5rem;
+}
+.project-title { font-size: 1.05rem; font-weight: 700; letter-spacing: -.015em; margin-bottom: 1rem; }
+.project-body { flex: 1; margin-bottom: 1.25rem; }
+.project-body dt {
+  font-size: .62rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: .2rem;
+}
+.project-body dd { font-size: .82rem; line-height: 1.7; color: #333; margin-bottom: .85rem; }
+.project-body dd:last-child { margin-bottom: 0; }
+.project-foot { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+.project-stack { font-size: .63rem; color: var(--muted); font-family: monospace; line-height: 1.4; }
+.project-link, .posts-all {
+  display: inline-flex; align-items: center; gap: .2rem; flex-shrink: 0;
+  font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--accent); text-decoration: none;
+}
+.project-link:hover, .posts-all:hover { text-decoration: underline; }
+
+/* ── BLOG ── */
+a.post-item { text-decoration: none; color: inherit; }
+a.post-item:hover .exp-company { color: var(--accent); transition: color 200ms ease; }
+.post-item .exp-company { margin-bottom: 0; }
+.posts-all { margin-top: 1.25rem; }
 
 /* ── EXPERIENCE ── */
 .exp-list { display: flex; flex-direction: column; }
@@ -331,12 +377,16 @@ a.skill-group-label:hover { color: var(--accent); opacity: 1; }
   :root { --label-w: 130px; }
   .skills-groups { grid-template-columns: repeat(2,1fr); }
   .stats { grid-template-columns: repeat(2,1fr); }
+  .projects-grid { grid-template-columns: 1fr; }
+  .projects-grid > .reveal:nth-child(odd) { border-right: none; }
+  .project, .projects-grid > .reveal:nth-child(even) .project { padding: 1.5rem 0; }
 }
 @media (max-width: 640px) {
   .nav-wrap { padding: 0 1rem; }
   .nav-logo { font-size: .7rem; }
   .nav-links { gap: .9rem; }
   .nav-links a { font-size: .62rem; letter-spacing: .02em; }
+  .nav-hide-sm { display: none; }
   section { padding: 3.5rem 0; }
   .section-row, .hero-bottom { grid-template-columns: 1fr; gap: 1.25rem; }
   .section-label { position: static; }
