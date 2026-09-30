@@ -66,3 +66,7 @@ Runs on port `8080`.
 Pushing to `main` or creating a `v*` tag triggers a GitHub Actions build that pushes to `ghcr.io/j551n-ncloud/homepage`. The release notes are automatically updated with the image digest and pull command.
 
 The version shown in the site footer comes from the `v*` tag itself (`NEXT_PUBLIC_APP_VERSION`), not from `package.json`. `package.json`'s `version` field is frozen and no longer bumped per release.
+
+## License
+
+Source code: MIT, see [LICENSE](LICENSE). Site content (texts, CV, images) is not covered and remains all rights reserved.
