@@ -19,11 +19,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${base}/legal/notice`,
       changeFrequency: "yearly",
       priority: 0.2,
+      alternates: { languages: { en: `${base}/legal/notice`, de: `${base}/de/impressum` } },
+    },
+    {
+      url: `${base}/de/impressum`,
+      changeFrequency: "yearly",
+      priority: 0.2,
+      alternates: { languages: { en: `${base}/legal/notice`, de: `${base}/de/impressum` } },
     },
     {
       url: `${base}/legal/privacy`,
       changeFrequency: "yearly",
       priority: 0.2,
+      alternates: { languages: { en: `${base}/legal/privacy`, de: `${base}/de/datenschutz` } },
+    },
+    {
+      url: `${base}/de/datenschutz`,
+      changeFrequency: "yearly",
+      priority: 0.2,
+      alternates: { languages: { en: `${base}/legal/privacy`, de: `${base}/de/datenschutz` } },
     },
   ];
 }

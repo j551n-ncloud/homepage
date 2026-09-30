@@ -1,8 +1,9 @@
 export type Lang = "en" | "de";
 
 type Link = { href: string; label: string };
-type SkillItem = { name: string; tags: string; href?: string };
-type SkillGroup = { label: string; href?: string; items: SkillItem[] };
+// tag: blog tag slug, linked only while that tag page is public (see getLiveTags)
+type SkillItem = { name: string; tags: string; href?: string; tag?: string };
+type SkillGroup = { label: string; tag?: string; items: SkillItem[] };
 type Project = {
   kind: string;
   title: string;
@@ -11,19 +12,19 @@ type Project = {
   stack: string;
   link?: Link;
 };
-type ExpItem = { period: string; company: string; href?: string; role: string; current?: boolean };
+type ExpItem = { period: string; company: string; href?: string; role: string; current?: boolean; points?: { label: string; text: string }[] };
 
 export type Content = {
   meta: { title: string; description: string };
   nav: { about: string; skills: string; projects: string; experience: string; contact: string };
   langSwitch: { href: string; label: string; aria: string };
-  hero: { role: string; avail: string; headlineStart: string; headlineStrong: string; headlineEnd: string; contact: string; about: string };
+  hero: { role: string; avail: string; headlineStart: string; headlineStrong: string; headlineEnd: string; contact: string; cv: string };
   about: { label: string; paragraphs: string[]; stats: { to?: number; suffix?: string; text?: string; label: string }[] };
   skills: { label: string; title: string; intro: string; groups: SkillGroup[] };
   projects: { label: string; title: string; intro: string; problem: string; solution: string; items: Project[] };
   experience: { label: string; items: ExpItem[] };
   blog: { label: string; title: string; all: string; locale: string };
-  contact: { label: string; text: string; avail: string; copied: string };
+  contact: { label: string; text: string; avail: string; location: string; copied: string };
   footer: { notice: string; privacy: string };
 };
 
@@ -33,28 +34,28 @@ const gh = "https://github.com/j551n-ncloud";
 const skillGroups = (de: boolean): SkillGroup[] => [
   {
     label: "Sysadmin",
-    href: `${blog}/tag/linux/`,
+    tag: "linux",
     items: [
-      { name: "Linux", tags: "systemd, RHEL, Debian, cgroups, auditd", href: `${blog}/tag/linux/` },
+      { name: "Linux", tags: "systemd, RHEL, Debian, cgroups, auditd", tag: "linux" },
       { name: de ? "Bash-Scripting" : "Bash Scripting", tags: de ? "Shell-Tools, Automatisierung" : "Shell utilities, automation" },
-      { name: "IBM LSF & ESS", tags: de ? "HPC-Cluster-Support, Quotas, Freigaben" : "HPC cluster support, quotas, shares" },
+      { name: "IBM LSF & ESS", tags: de ? "HPC-Cluster-Support, Quotas, Freigaben" : "HPC cluster support, quotas, shares", tag: "hpc" },
       { name: "Dell Hardware", tags: "iDRAC, PowerEdge, RAID, " + (de ? "Hardware-Diagnose" : "hardware diagnostics") },
     ],
   },
   {
     label: "DevOps",
-    href: `${blog}/tag/devops/`,
+    tag: "devops",
     items: [
-      { name: "Ansible / AWX", tags: de ? "Eigene Rollen, Playbooks, AWX Operator, Kickstart" : "Own roles, playbooks, AWX Operator, Kickstart" },
-      { name: "CI/CD", tags: "GitLab CI/CD, GitHub Actions, Git" },
+      { name: "Ansible / AWX", tags: de ? "Eigene Rollen, Playbooks, AWX Operator, Kickstart" : "Own roles, playbooks, AWX Operator, Kickstart", tag: "ansible" },
+      { name: "CI/CD", tags: "GitLab CI/CD, GitHub Actions, Git", tag: "ci-cd" },
       { name: "Python & SQL", tags: "FastAPI, PostgreSQL, MySQL" },
       { name: "TypeScript", tags: "Node.js, Next.js" },
-      { name: de ? "KI & LLMs" : "AI & LLMs", tags: de ? "RAG, MCP-Server, selbst gehostete LLMs" : "RAG, MCP servers, self-hosted LLMs" },
+      { name: de ? "KI & LLMs" : "AI & LLMs", tags: de ? "RAG, MCP-Server, selbst gehostete LLMs" : "RAG, MCP servers, self-hosted LLMs", tag: "ai" },
     ],
   },
   {
     label: de ? "Container & Virtualisierung" : "Containers & Virtualization",
-    href: `${blog}/tag/virtualization/`,
+    tag: "virtualization",
     items: [
       { name: "Proxmox VE & PBS", tags: "HA, Ceph, SDN, GPU passthrough" },
       { name: "Kubernetes", tags: "k3s, Helm, " + (de ? "Operatoren" : "operators") },
@@ -65,8 +66,8 @@ const skillGroups = (de: boolean): SkillGroup[] => [
   {
     label: "Identity & Security",
     items: [
-      { name: de ? "Verzeichnis & SSO" : "Directory & SSO", tags: "LDAP/AD, ADFS, OIDC, Pocket ID" },
-      { name: "Security", tags: "CrowdSec, Trivy, firewalld, TLS/PKI" },
+      { name: de ? "Verzeichnis & SSO" : "Directory & SSO", tags: "LDAP/AD, ADFS, OIDC, Pocket ID", tag: "identity" },
+      { name: "Security", tags: "CrowdSec, Trivy, firewalld, TLS/PKI", tag: "security" },
     ],
   },
   {
@@ -78,11 +79,11 @@ const skillGroups = (de: boolean): SkillGroup[] => [
   },
   {
     label: de ? "Infrastruktur" : "Infrastructure",
-    href: `${blog}/tag/infrastructure/`,
+    tag: "infrastructure",
     items: [
       { name: de ? "Netzwerk" : "Networking", tags: "VLANs, LACP, NetBox, Proxmox SDN, Tailscale" },
       { name: "Storage", tags: "IBM ESS, Ceph, NFS" },
-      { name: "Homelab", tags: de ? "3-Node-Proxmox-Cluster, Pangolin, SSO" : "3-node Proxmox cluster, Pangolin, SSO", href: `${blog}/my-homelab/` },
+      { name: "Homelab", tags: de ? "3-Node-Proxmox-Cluster, Pangolin, SSO" : "3-node Proxmox cluster, Pangolin, SSO", tag: "homelab" },
     ],
   },
 ];
@@ -98,22 +99,22 @@ export const content: Record<Lang, Content> = {
     hero: {
       role: "IT Specialist (IHK)",
       avail: "Available",
-      headlineStart: "From automotive diagnostics to enterprise systems integration: ",
-      headlineStrong: "IT specialist at DKFZ",
-      headlineEnd: ", homelab operator, automation-first thinker.",
+      headlineStart: "Linux, Ansible and Kubernetes for research infrastructure at the ",
+      headlineStrong: "German Cancer Research Center (DKFZ)",
+      headlineEnd: ", from the HPC cluster to the datacenter rack.",
       contact: "Contact me",
-      about: "About",
+      cv: "CV (PDF, German)",
     },
     about: {
       label: "About",
       paragraphs: [
-        "I am an IT specialist for system integration at the German Cancer Research Center (DKFZ), where I qualified in July 2026 after my apprenticeship (IHK). I work in the ODCF team on Linux, automation, Kubernetes and the HPC cluster.",
+        "I am an IT specialist for system integration at the German Cancer Research Center (DKFZ), where I qualified in July 2026 after my apprenticeship (IHK). I work in the ODCF team on Linux, automation, Kubernetes and the HPC cluster. Next up: computerized system validation in a GxP environment.",
         "I get up to speed with new technology quickly and take it from first comparison to production: evaluate the options, present them to the team, implement, hand over. I trace faults systematically to their root cause instead of patching symptoms, a way of working I learned in the workshop as an automotive mechatronics technician.",
       ],
       stats: [
         { to: 4, suffix: "+", label: "Years of Linux & Windows Server in production" },
         { to: 15, suffix: "+", label: "Self-hosted services deployed & maintained" },
-        { to: 3, label: "Proxmox nodes (N-Serv001–003)" },
+        { text: "HPC", label: "Cluster support with IBM LSF & ESS at DKFZ" },
         { text: "IHK 2026", label: "Qualified IT specialist for system integration" },
       ],
     },
@@ -142,7 +143,7 @@ export const content: Record<Lang, Content> = {
           kind: "Work · ODCF · Open source",
           title: "systemd-resource-control",
           problem: "On shared cluster nodes, a single user could use up all CPU and memory and slow down everyone else.",
-          solution: "An Ansible role that limits CPU and RAM per user with systemd slices, applied at login through PAM. Running in production.",
+          solution: "An Ansible role that limits CPU and RAM per user with systemd slices, applied at login through PAM. In production on all 5 worker nodes of the HPC cluster, for every cluster user.",
           stack: "Ansible · systemd · PAM",
           link: { href: `${gh}/systemd-resource-control`, label: "GitHub" },
         },
@@ -150,7 +151,7 @@ export const content: Record<Lang, Content> = {
           kind: "Homelab · Open source",
           title: "git-iac: self-hosted GitOps",
           problem: "Updating services by hand across many hosts is slow, and a bad update is hard to roll back.",
-          solution: "Separate build and deploy pipelines: images are tagged by commit SHA, scanned with Trivy and stored in Harbor. A merge request bumps the pin, and the merge rolls it out with Ansible after a Proxmox snapshot.",
+          solution: "Separate build and deploy pipelines: images are tagged by commit SHA, scanned with Trivy and stored in Harbor. A merge request bumps the pin, and the merge rolls it out with Ansible after a Proxmox snapshot. Deploys 15 Docker stacks to 5 hosts.",
           stack: "GitLab CI · Ansible · Harbor · Trivy",
           link: { href: `${gh}/git-iac`, label: "GitHub" },
         },
@@ -167,14 +168,20 @@ export const content: Record<Lang, Content> = {
     experience: {
       label: "Experience",
       items: [
-        { period: "2022 – Present", company: "German Cancer Research Center (DKFZ)", href: `${blog}/dkfz/`, role: "IT Specialist for System Integration, ODCF", current: true },
+        {
+          period: "2022 – Present", company: "German Cancer Research Center (DKFZ)", href: `${blog}/dkfz/`, role: "IT Specialist for System Integration, ODCF", current: true,
+          points: [
+            { label: "HPC cluster", text: "support and troubleshooting for W610 with IBM LSF, users, shares and quotas on IBM ESS" },
+            { label: "Projects to production", text: "AWX and Ascender on k3s, Bitwarden, Harbor, EasyBuild, per-user CPU and RAM limits" },
+            { label: "Identity & logging", text: "LDAP/AD and ADFS login for services, central logging with Loki and Grafana Alloy" },
+            { label: "Datacenter", text: "racks, cabling and hosts planned in NetBox, Dell PowerEdge via iDRAC" },
+            { label: "Documentation", text: "SOPs for recurring procedures" },
+          ],
+        },
         { period: "2022 – 2026", company: "German Cancer Research Center (DKFZ)", href: `${blog}/dkfz/`, role: "Apprenticeship, IT Specialist for System Integration (IHK, 07/2026)" },
         { period: "2021 – 2022", company: "Rheingönheim Vögele", role: "Commercial Vehicle Mechanic" },
         { period: "2017 – 2021", company: "Mercedes-Benz Mannheim", role: "Apprenticeship, Automotive Mechatronics Technician" },
-        { period: "2016", company: "BASF Ludwigshafen", role: "Computer Science Internship" },
-        { period: "2016", company: "Porsche Weissach", role: "BORS Prototyping Internship" },
-        { period: "2015", company: "TRW Radolfzell", role: "Production & Material Testing Internship" },
-        { period: "2013", company: "GRN Schwetzingen", role: "Computer Science Internship" },
+        { period: "2013 – 2016", company: "BASF, Porsche, TRW, GRN", role: "Internships: computer science, prototyping, material testing" },
       ],
     },
     blog: { label: "Blog", title: "Latest posts", all: "All posts", locale: "en-GB" },
@@ -182,9 +189,10 @@ export const content: Record<Lang, Content> = {
       label: "Contact",
       text: "I am deepening my expertise in automation, observability, and resilient platform design while bringing the same discipline from automotive diagnostics into modern infrastructure work.",
       avail: "Open to opportunities matching systems work",
+      location: "Based in the Rhein-Neckar region, near Heidelberg",
       copied: "Copied!",
     },
-    footer: { notice: "Impressum", privacy: "Privacy" },
+    footer: { notice: "Legal Notice", privacy: "Privacy" },
   },
   de: {
     meta: {
@@ -196,22 +204,22 @@ export const content: Record<Lang, Content> = {
     hero: {
       role: "Fachinformatiker (IHK)",
       avail: "Verfügbar",
-      headlineStart: "Von der Fahrzeugdiagnose zur Systemintegration: ",
-      headlineStrong: "Fachinformatiker am DKFZ",
-      headlineEnd: ", Homelab-Betreiber, Automatisierung zuerst.",
+      headlineStart: "Linux, Ansible und Kubernetes für die Forschungsinfrastruktur am ",
+      headlineStrong: "Deutschen Krebsforschungszentrum (DKFZ)",
+      headlineEnd: ", vom HPC-Cluster bis zum Rack im Rechenzentrum.",
       contact: "Kontakt",
-      about: "Über mich",
+      cv: "Lebenslauf (PDF)",
     },
     about: {
       label: "Über mich",
       paragraphs: [
-        "Ich bin Fachinformatiker für Systemintegration am Deutschen Krebsforschungszentrum (DKFZ), wo ich im Juli 2026 meine Ausbildung (IHK) abgeschlossen habe. Im ODCF-Team arbeite ich mit Linux, Automatisierung, Kubernetes und dem HPC-Cluster.",
+        "Ich bin Fachinformatiker für Systemintegration am Deutschen Krebsforschungszentrum (DKFZ), wo ich im Juli 2026 meine Ausbildung (IHK) abgeschlossen habe. Im ODCF-Team arbeite ich mit Linux, Automatisierung, Kubernetes und dem HPC-Cluster. Als Nächstes kommt die Validierung computergestützter Systeme im GxP-Umfeld dazu.",
         "Ich arbeite mich schnell in neue Technologien ein und bringe sie vom ersten Vergleich bis in den Produktivbetrieb: Optionen bewerten, im Team vorstellen, umsetzen, übergeben. Fehler verfolge ich systematisch bis zur Ursache, statt nur Symptome zu beheben. Diese Arbeitsweise habe ich als Kfz-Mechatroniker in der Werkstatt gelernt.",
       ],
       stats: [
         { to: 4, suffix: "+", label: "Jahre Linux & Windows Server im Produktivbetrieb" },
         { to: 15, suffix: "+", label: "Selbst gehostete Dienste aufgebaut & betrieben" },
-        { to: 3, label: "Proxmox-Knoten (N-Serv001–003)" },
+        { text: "HPC", label: "Cluster-Support mit IBM LSF & ESS am DKFZ" },
         { text: "IHK 2026", label: "Fachinformatiker für Systemintegration" },
       ],
     },
@@ -240,7 +248,7 @@ export const content: Record<Lang, Content> = {
           kind: "Arbeit · ODCF · Open Source",
           title: "systemd-resource-control",
           problem: "Auf geteilten Cluster-Knoten konnte ein einzelner Benutzer CPU und RAM komplett belegen und alle anderen ausbremsen.",
-          solution: "Eine Ansible-Rolle, die CPU und RAM pro Benutzer über systemd-Slices begrenzt, angewendet beim Login per PAM. Produktiv im Einsatz.",
+          solution: "Eine Ansible-Rolle, die CPU und RAM pro Benutzer über systemd-Slices begrenzt, angewendet beim Login per PAM. Produktiv auf allen 5 Worker-Knoten des HPC-Clusters, für jeden Cluster-Benutzer.",
           stack: "Ansible · systemd · PAM",
           link: { href: `${gh}/systemd-resource-control`, label: "GitHub" },
         },
@@ -248,7 +256,7 @@ export const content: Record<Lang, Content> = {
           kind: "Homelab · Open Source",
           title: "git-iac: Self-hosted GitOps",
           problem: "Dienste auf vielen Hosts von Hand zu aktualisieren ist langsam, und ein fehlerhaftes Update lässt sich schwer zurückrollen.",
-          solution: "Getrennte Build- und Deploy-Pipelines: Images mit Commit-SHA, Trivy-Scan und Ablage in Harbor. Ein Merge Request hebt den Pin, der Merge rollt per Ansible nach einem Proxmox-Snapshot aus.",
+          solution: "Getrennte Build- und Deploy-Pipelines: Images mit Commit-SHA, Trivy-Scan und Ablage in Harbor. Ein Merge Request hebt den Pin, der Merge rollt per Ansible nach einem Proxmox-Snapshot aus. Verteilt 15 Docker-Stacks auf 5 Hosts.",
           stack: "GitLab CI · Ansible · Harbor · Trivy",
           link: { href: `${gh}/git-iac`, label: "GitHub" },
         },
@@ -265,14 +273,20 @@ export const content: Record<Lang, Content> = {
     experience: {
       label: "Werdegang",
       items: [
-        { period: "2022 – heute", company: "Deutsches Krebsforschungszentrum (DKFZ)", href: `${blog}/dkfz/`, role: "Fachinformatiker für Systemintegration, ODCF", current: true },
+        {
+          period: "2022 – heute", company: "Deutsches Krebsforschungszentrum (DKFZ)", href: `${blog}/dkfz/`, role: "Fachinformatiker für Systemintegration, ODCF", current: true,
+          points: [
+            { label: "HPC-Cluster", text: "Support und Troubleshooting für W610 mit IBM LSF, Benutzer, Freigaben und Quotas auf IBM ESS" },
+            { label: "Projekte bis zum Produktivbetrieb", text: "AWX und Ascender auf k3s, Bitwarden, Harbor, EasyBuild, CPU- und RAM-Limits pro Benutzer" },
+            { label: "Identity & Logging", text: "Anmeldung per LDAP/AD und ADFS, zentrales Logging mit Loki und Grafana Alloy" },
+            { label: "Rechenzentrum", text: "Racks, Verkabelung und Hosts in NetBox geplant, Dell PowerEdge per iDRAC" },
+            { label: "Dokumentation", text: "SOPs für wiederkehrende Abläufe" },
+          ],
+        },
         { period: "2022 – 2026", company: "Deutsches Krebsforschungszentrum (DKFZ)", href: `${blog}/dkfz/`, role: "Ausbildung, Fachinformatiker für Systemintegration (IHK, 07/2026)" },
         { period: "2021 – 2022", company: "Rheingönheim Vögele", role: "Nutzfahrzeugmechaniker" },
         { period: "2017 – 2021", company: "Mercedes-Benz Mannheim", role: "Ausbildung, Kfz-Mechatroniker" },
-        { period: "2016", company: "BASF Ludwigshafen", role: "Praktikum Informatik" },
-        { period: "2016", company: "Porsche Weissach", role: "Praktikum Prototypenbau (BORS)" },
-        { period: "2015", company: "TRW Radolfzell", role: "Praktikum Fertigung & Werkstoffprüfung" },
-        { period: "2013", company: "GRN Schwetzingen", role: "Praktikum Informatik" },
+        { period: "2013 – 2016", company: "BASF, Porsche, TRW, GRN", role: "Praktika: Informatik, Prototypenbau, Werkstoffprüfung" },
       ],
     },
     blog: { label: "Blog", title: "Neueste Beiträge", all: "Alle Beiträge", locale: "de-DE" },
@@ -280,6 +294,7 @@ export const content: Record<Lang, Content> = {
       label: "Kontakt",
       text: "Ich vertiefe mein Wissen in Automatisierung, Observability und resilientem Plattformdesign und bringe dabei die Sorgfalt aus der Fahrzeugdiagnose in moderne Infrastrukturarbeit ein.",
       avail: "Offen für neue Aufgaben in der Systemarbeit",
+      location: "Wohnhaft in der Rhein-Neckar-Region, bei Heidelberg",
       copied: "Kopiert!",
     },
     footer: { notice: "Impressum", privacy: "Datenschutz" },

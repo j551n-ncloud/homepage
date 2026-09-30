@@ -274,6 +274,13 @@ a.post-item:hover .exp-company { color: var(--accent); transition: color 200ms e
 .exp-company a { text-decoration: none; color: inherit; transition: color 150ms; }
 .exp-company a:hover { color: var(--accent); }
 .exp-role { font-size: .8rem; color: var(--muted); }
+.exp-points { list-style: none; margin-top: .85rem; max-width: 640px; }
+.exp-points li {
+  position: relative; padding-left: 1rem;
+  font-size: .8rem; line-height: 1.65; color: #444; margin-bottom: .5rem;
+}
+.exp-points li::before { content: "-"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+.exp-points strong { font-weight: 600; color: var(--text); }
 .exp-current .exp-company { color: var(--accent); }
 .exp-current .exp-period { color: var(--accent); font-weight: 600; }
 
@@ -288,8 +295,9 @@ a.post-item:hover .exp-company { color: var(--accent); transition: color 200ms e
   letter-spacing: .08em; text-transform: uppercase;
   color: #2a7a2a; margin-bottom: 2rem;
 }
+.contact-text p.contact-location { display: block; font-size: .8rem; color: var(--muted); margin: -1rem 0 2rem; }
 .contact-list {
-  display: grid; grid-template-columns: repeat(3,1fr);
+  display: grid; grid-template-columns: repeat(3,minmax(0,1fr));
   border-top: 2px solid var(--text);
 }
 .contact-item {
@@ -308,7 +316,7 @@ a.post-item:hover .exp-company { color: var(--accent); transition: color 200ms e
   letter-spacing: .1em; text-transform: uppercase;
   color: var(--muted); margin-bottom: .4rem;
 }
-.ci-value { font-size: .875rem; font-weight: 500; transition: color 150ms; }
+.ci-value { font-size: .875rem; font-weight: 500; transition: color 150ms; overflow-wrap: anywhere; }
 
 /* ── FOOTER ── */
 .footer-wrap {
@@ -394,4 +402,10 @@ a.post-item:hover .exp-company { color: var(--accent); transition: color 200ms e
   .skills-groups, .stats, .contact-list { grid-template-columns: 1fr; }
   .contact-item { border-right: none; border-bottom: 1px solid var(--rule); padding: 1rem 0 !important; }
   .exp-item { grid-template-columns: 1fr; gap: .3rem; }
+  .footer-wrap { flex-direction: column; align-items: flex-start; gap: .75rem; }
+  .footer-meta { flex-wrap: wrap; gap: .5rem 1.25rem; }
+  .legal-page { padding: 3.5rem 0 4rem; }
+  .legal-section { grid-template-columns: 1fr; gap: .6rem; padding: 1.5rem 0; }
+  .legal-section-label { position: static; }
+  .legal-section-body a { overflow-wrap: anywhere; }
 }

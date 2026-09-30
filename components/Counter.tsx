@@ -13,13 +13,14 @@ export default function Counter({
   className?: string;
   style?: React.CSSProperties;
 }) {
-  const [val, setVal] = useState(0);
+  // server renders the final value (crawlers, link previews), the count-up only runs in the browser
+  const [val, setVal] = useState(to);
   const ref = useRef<HTMLDivElement>(null);
   const fired = useRef(false);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting || fired.current) return;
@@ -34,7 +35,7 @@ export default function Counter({
         }
         requestAnimationFrame(tick);
       },
-      { threshold: 0.2 }
+      { threshold: 0 }
     );
     obs.observe(el);
     return () => obs.disconnect();

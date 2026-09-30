@@ -30,3 +30,21 @@ export async function getLatestPosts(limit = 3): Promise<Post[]> {
     return [];
   }
 }
+
+// Ghost only serves /tag/<slug>/ once the tag has a published post, so a 200 means the link is safe.
+// Checked on each hourly revalidation; unreachable blog means no tag links rather than dead ones.
+export async function getLiveTags(slugs: string[]): Promise<Set<string>> {
+  const results = await Promise.all(
+    [...new Set(slugs)].map(async (slug) => {
+      try {
+        const res = await fetch(`https://blog.j551n.com/tag/${slug}/rss/`, { next: { revalidate: 3600 } });
+        return res.ok ? slug : null;
+      } catch {
+        return null;
+      }
+    }),
+  );
+  return new Set(results.filter((s): s is string => s !== null));
+}
+
+export const tagUrl = (slug: string) => `https://blog.j551n.com/tag/${slug}/`;

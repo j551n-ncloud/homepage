@@ -5,9 +5,12 @@ import Reveal from "@/components/Reveal";
 import EmailCopy from "@/components/EmailCopy";
 import Counter from "@/components/Counter";
 import { content, type Lang } from "@/lib/content";
-import { getLatestPosts } from "@/lib/blog";
+import { getLatestPosts, getLiveTags, tagUrl } from "@/lib/blog";
+import { legalPaths } from "@/lib/legal";
 
 const version = (process.env.NEXT_PUBLIC_APP_VERSION ?? "dev").replace(/^v/, "");
+// web variant without phone and street address, built from the Bewerbung repo (make web)
+const CV_PATH = "/Johannes_Nguyen_Lebenslauf.pdf";
 
 const personJsonLd = {
   "@context": "https://schema.org",
@@ -57,6 +60,11 @@ const personJsonLd = {
 export default async function HomePage({ lang }: { lang: Lang }) {
   const t = content[lang];
   const posts = await getLatestPosts(3);
+  const liveTags = await getLiveTags(
+    t.skills.groups.flatMap((g) => [g.tag, ...g.items.map((i) => i.tag)]).filter((x): x is string => !!x),
+  );
+  const linkFor = (x: { href?: string; tag?: string }) =>
+    x.href ?? (x.tag && liveTags.has(x.tag) ? tagUrl(x.tag) : undefined);
   const year = new Date().getFullYear();
   const fmt = new Intl.DateTimeFormat(t.blog.locale, { day: "2-digit", month: "short", year: "numeric", timeZone: "UTC" });
 
@@ -90,8 +98,8 @@ export default async function HomePage({ lang }: { lang: Lang }) {
                   <strong>{t.hero.headlineStrong}</strong>{t.hero.headlineEnd}
                 </p>
                 <div className="hero-btns">
-                  <a href="#contact" className="btn btn-fill">{t.hero.contact}</a>
-                  <a href="#about" className="btn btn-outline">{t.hero.about}</a>
+                  <a href={CV_PATH} className="btn btn-fill" download>{t.hero.cv}</a>
+                  <a href="#contact" className="btn btn-outline">{t.hero.contact}</a>
                 </div>
               </div>
             </div>
@@ -138,13 +146,13 @@ export default async function HomePage({ lang }: { lang: Lang }) {
                 {t.skills.groups.map((g, i) => (
                   <Reveal delay={(i % 3) * 100} key={g.label}>
                     <div>
-                      {g.href
-                        ? <a className="skill-group-label" href={g.href} target="_blank" rel="noopener noreferrer">{g.label}</a>
+                      {linkFor(g)
+                        ? <a className="skill-group-label" href={linkFor(g)} target="_blank" rel="noopener noreferrer">{g.label}</a>
                         : <div className="skill-group-label">{g.label}</div>}
                       {g.items.map((s) => (
                         <div className="skill-item" key={s.name}>
-                          {s.href
-                            ? <a className="skill-item-name" href={s.href} target="_blank" rel="noopener noreferrer">{s.name}</a>
+                          {linkFor(s)
+                            ? <a className="skill-item-name" href={linkFor(s)} target="_blank" rel="noopener noreferrer">{s.name}</a>
                             : <div className="skill-item-name">{s.name}</div>}
                           <div className="skill-item-tags">{s.tags}</div>
                         </div>
@@ -208,6 +216,11 @@ export default async function HomePage({ lang }: { lang: Lang }) {
                     <div>
                       <div className="exp-company">{e.href ? <a href={e.href} target="_blank" rel="noopener noreferrer">{e.company}</a> : e.company}</div>
                       <div className="exp-role">{e.role}</div>
+                      {e.points && (
+                        <ul className="exp-points">
+                          {e.points.map((pt) => <li key={pt.label}><strong>{pt.label}:</strong> {pt.text}</li>)}
+                        </ul>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -249,6 +262,7 @@ export default async function HomePage({ lang }: { lang: Lang }) {
                   <div className="avail-dot" style={{ background: "#2a7a2a" }} />
                   {t.contact.avail}
                 </div>
+                <p className="contact-location">{t.contact.location}</p>
               </div>
               <div className="contact-list">
                 <EmailCopy copiedLabel={t.contact.copied} />
@@ -273,8 +287,8 @@ export default async function HomePage({ lang }: { lang: Lang }) {
           <div className="footer-meta">
             <span>© {year}</span>
             <a href={`https://github.com/j551n-ncloud/homepage/releases/tag/v${version}`} target="_blank" rel="noopener noreferrer">v{version}</a>
-            <Link href="/legal/notice">{t.footer.notice}</Link>
-            <Link href="/legal/privacy">{t.footer.privacy}</Link>
+            <Link href={legalPaths[lang].notice}>{t.footer.notice}</Link>
+            <Link href={legalPaths[lang].privacy}>{t.footer.privacy}</Link>
           </div>
         </footer>
         <div className="footer-services">
