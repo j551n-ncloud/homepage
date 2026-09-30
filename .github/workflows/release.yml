@@ -52,6 +52,7 @@ jobs:
           cache-to: type=gha,mode=max
           build-args: |
             NEXT_PUBLIC_APP_VERSION=${{ github.ref_type == 'tag' && github.ref_name || 'dev' }}
+            NEXT_PUBLIC_POSTHOG_KEY=${{ vars.POSTHOG_KEY }}
 
       - name: Update release with image info
         if: startsWith(github.ref, 'refs/tags/')

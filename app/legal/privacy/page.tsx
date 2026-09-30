@@ -36,17 +36,19 @@ export default function Privacy() {
                 <li>Browser type and version</li>
                 <li>Operating system used</li>
                 <li>Referrer URL</li>
-                <li>Anonymized IP address</li>
+                <li>IP address and country</li>
+                <li>Requested page</li>
                 <li>Date and time of the server request</li>
               </ul>
-              <p>This data cannot be attributed to specific individuals and is not combined with other sources. It serves the secure and reliable operation of the website.</p>
+              <p>This data is not combined with other sources. It serves the secure and reliable operation of the website and the detection of abuse (Art. 6(1)(f) GDPR). Log files are deleted automatically through log rotation after a short period.</p>
             </div>
           </div>
 
           <div className="legal-section">
-            <div className="legal-section-label">Cookies</div>
+            <div className="legal-section-label">Analytics</div>
             <div className="legal-section-body">
-              <p>Session cookies are used to enable core functionality and analytics during a visit. They are deleted automatically once the browser session ends. Browsers can be configured to block cookies, which may limit certain features.</p>
+              <p>This site uses PostHog (PostHog Inc., hosted in the EU, Frankfurt) to understand how visitors use it, such as pages viewed, referrer and device type. PostHog runs in cookieless mode: no cookies or local storage are set and no persistent identifier is stored on your device. Visitors are counted via a daily rotating hash that cannot be traced back to an individual.</p>
+              <p>Legal basis is legitimate interest in improving the website (Art. 6(1)(f) GDPR). Tracking can be blocked with common content blockers.</p>
             </div>
           </div>
 
@@ -74,7 +76,7 @@ export default function Privacy() {
           <div className="legal-section">
             <div className="legal-section-label">Last updated</div>
             <div className="legal-section-body">
-              <p>April 2025</p>
+              <p>September 2026</p>
             </div>
           </div>
 
