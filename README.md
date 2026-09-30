@@ -69,4 +69,6 @@ The version shown in the site footer comes from the `v*` tag itself (`NEXT_PUBLI
 
 ## License
 
-Source code: MIT, see [LICENSE](LICENSE). Site content (texts, CV, images) is not covered and remains all rights reserved.
+Source code: GNU Affero General Public License v3.0, see [LICENSE](LICENSE). Copyright (c) 2026 Johannes Nguyen.
+
+The license covers the source code only. The site's content (texts, the CV in `public/*.pdf`, images and the personal data in them) is not covered and remains all rights reserved.
