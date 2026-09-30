@@ -10,7 +10,7 @@ type Project = {
   problem: string;
   solution: string;
   stack: string;
-  link?: Link;
+  links?: Link[];
 };
 type ExpItem = { period: string; company: string; href?: string; role: string; current?: boolean; points?: { label: string; text: string }[] };
 
@@ -137,7 +137,7 @@ export const content: Record<Lang, Content> = {
           problem: "My notes and work SOPs were spread out, and every task switch meant searching for them again. On top of that, the department has a steep learning curve.",
           solution: "A personal retrieval system with hybrid search (full text and embeddings) over my notes and SOPs, exposed as an MCP server so LLM assistants answer from them. Built privately, used daily at work.",
           stack: "Node.js · SQLite · multilingual-e5 · MCP",
-          link: { href: `${gh}/glance-public`, label: "GitHub" },
+          links: [{ href: `${gh}/glance-public`, label: "GitHub" }, { href: "https://blog.j551n.com/from-dashboard-to-assistant-backend-glance-with-73-mcp-tools/", label: "Blog" }],
         },
         {
           kind: "Work · ODCF · Open source",
@@ -145,7 +145,7 @@ export const content: Record<Lang, Content> = {
           problem: "On shared cluster nodes, a single user could use up all CPU and memory and slow down everyone else.",
           solution: "An Ansible role that limits CPU and RAM per user with systemd slices, applied at login through PAM. In production on all 5 worker nodes of the HPC cluster, for every cluster user.",
           stack: "Ansible · systemd · PAM",
-          link: { href: `${gh}/systemd-resource-control`, label: "GitHub" },
+          links: [{ href: `${gh}/systemd-resource-control`, label: "GitHub" }, { href: "https://blog.j551n.com/per-user-cpu-and-ram-limits-on-shared-cluster-nodes-with-systemd-and-pam/", label: "Blog" }],
         },
         {
           kind: "Homelab · Open source",
@@ -153,7 +153,7 @@ export const content: Record<Lang, Content> = {
           problem: "Updating services by hand across many hosts is slow, and a bad update is hard to roll back.",
           solution: "Separate build and deploy pipelines: images are tagged by commit SHA, scanned with Trivy and stored in Harbor. A merge request bumps the pin, and the merge rolls it out with Ansible after a Proxmox snapshot. Deploys 15 Docker stacks to 5 hosts.",
           stack: "GitLab CI · Ansible · Harbor · Trivy",
-          link: { href: `${gh}/git-iac`, label: "GitHub" },
+          links: [{ href: `${gh}/git-iac`, label: "GitHub" }, { href: "https://blog.j551n.com/two-repos-one-pipeline-self-hosted-gitops-with-gitlab-ci-harbor-and-ansible/", label: "Blog" }],
         },
         {
           kind: "Work · ODCF",
@@ -161,7 +161,7 @@ export const content: Record<Lang, Content> = {
           problem: "Ansible runs happened from individual machines, with no shared overview of who ran what.",
           solution: "Compared AWX and Ascender, presented the results, then ran them on k3s behind the corporate proxy with LDAP/AD login, deployed by my own playbook.",
           stack: "k3s · Helm · AWX Operator · LDAP/AD",
-          link: { href: `${blog}/dkfz/`, label: "Blog" },
+          links: [{ href: `${blog}/dkfz/`, label: "Blog" }],
         },
       ],
     },
@@ -242,7 +242,7 @@ export const content: Record<Lang, Content> = {
           problem: "Meine Notizen und die SOPs aus der Arbeit waren verteilt, und bei jedem Aufgabenwechsel habe ich sie neu zusammengesucht. Dazu kommt die steile Einarbeitung in der Abteilung.",
           solution: "Ein eigenes Retrieval-System mit hybrider Suche (Volltext und Embeddings) über meine Notizen und SOPs, bereitgestellt als MCP-Server, damit LLM-Assistenten daraus antworten. Privat gebaut, täglich im Job im Einsatz.",
           stack: "Node.js · SQLite · multilingual-e5 · MCP",
-          link: { href: `${gh}/glance-public`, label: "GitHub" },
+          links: [{ href: `${gh}/glance-public`, label: "GitHub" }, { href: "https://blog.j551n.com/from-dashboard-to-assistant-backend-glance-with-73-mcp-tools/", label: "Blog" }],
         },
         {
           kind: "Arbeit · ODCF · Open Source",
@@ -250,7 +250,7 @@ export const content: Record<Lang, Content> = {
           problem: "Auf geteilten Cluster-Knoten konnte ein einzelner Benutzer CPU und RAM komplett belegen und alle anderen ausbremsen.",
           solution: "Eine Ansible-Rolle, die CPU und RAM pro Benutzer über systemd-Slices begrenzt, angewendet beim Login per PAM. Produktiv auf allen 5 Worker-Knoten des HPC-Clusters, für jeden Cluster-Benutzer.",
           stack: "Ansible · systemd · PAM",
-          link: { href: `${gh}/systemd-resource-control`, label: "GitHub" },
+          links: [{ href: `${gh}/systemd-resource-control`, label: "GitHub" }, { href: "https://blog.j551n.com/per-user-cpu-and-ram-limits-on-shared-cluster-nodes-with-systemd-and-pam/", label: "Blog" }],
         },
         {
           kind: "Homelab · Open Source",
@@ -258,7 +258,7 @@ export const content: Record<Lang, Content> = {
           problem: "Dienste auf vielen Hosts von Hand zu aktualisieren ist langsam, und ein fehlerhaftes Update lässt sich schwer zurückrollen.",
           solution: "Getrennte Build- und Deploy-Pipelines: Images mit Commit-SHA, Trivy-Scan und Ablage in Harbor. Ein Merge Request hebt den Pin, der Merge rollt per Ansible nach einem Proxmox-Snapshot aus. Verteilt 15 Docker-Stacks auf 5 Hosts.",
           stack: "GitLab CI · Ansible · Harbor · Trivy",
-          link: { href: `${gh}/git-iac`, label: "GitHub" },
+          links: [{ href: `${gh}/git-iac`, label: "GitHub" }, { href: "https://blog.j551n.com/two-repos-one-pipeline-self-hosted-gitops-with-gitlab-ci-harbor-and-ansible/", label: "Blog" }],
         },
         {
           kind: "Arbeit · ODCF",
@@ -266,7 +266,7 @@ export const content: Record<Lang, Content> = {
           problem: "Ansible lief von einzelnen Rechnern aus, ohne gemeinsamen Überblick, wer was ausgeführt hat.",
           solution: "AWX und Ascender verglichen, Ergebnisse vorgestellt und dann auf k3s hinter dem Firmen-Proxy betrieben, mit LDAP/AD-Anmeldung und eigenem Playbook für das Deployment.",
           stack: "k3s · Helm · AWX Operator · LDAP/AD",
-          link: { href: `${blog}/dkfz/`, label: "Blog" },
+          links: [{ href: `${blog}/dkfz/`, label: "Blog" }],
         },
       ],
     },

@@ -190,10 +190,14 @@ export default async function HomePage({ lang }: { lang: Lang }) {
                       </dl>
                       <div className="project-foot">
                         <span className="project-stack">{p.stack}</span>
-                        {p.link && (
-                          <a className="project-link" href={p.link.href} target="_blank" rel="noopener noreferrer">
-                            {p.link.label}<ArrowUpRight size={13} />
-                          </a>
+                        {p.links && (
+                          <span className="project-links">
+                            {p.links.map((l) => (
+                              <a className="project-link" href={l.href} target="_blank" rel="noopener noreferrer" key={l.href}>
+                                {l.label}<ArrowUpRight size={13} />
+                              </a>
+                            ))}
+                          </span>
                         )}
                       </div>
                     </article>

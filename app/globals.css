@@ -251,6 +251,7 @@ a.skill-group-label:hover { color: var(--accent); opacity: 1; }
   color: var(--accent); text-decoration: none;
 }
 .project-link:hover, .posts-all:hover { text-decoration: underline; }
+.project-links { display: inline-flex; gap: 1rem; flex-shrink: 0; }
 
 /* ── BLOG ── */
 a.post-item { text-decoration: none; color: inherit; }
