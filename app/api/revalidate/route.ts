@@ -5,10 +5,9 @@ import type { NextRequest } from "next/server";
 // Called by Ghost webhooks (post published, edited, unpublished) so new posts and tag links show up
 // right away instead of after the hourly revalidation.
 //
-// Ghost refuses webhooks to private IPs, so it calls the public URL through Cloudflare. Those requests
-// must carry a valid X-Ghost-Signature: "sha256=<hex>, t=<ms>", an HMAC-SHA256 of body + timestamp with
-// the webhook secret (GHOST_WEBHOOK_SECRET). Calls from the LAN (no CF-Connecting-IP) are allowed
-// without it, for a manual refresh.
+// Every request must carry a valid X-Ghost-Signature: "sha256=<hex>, t=<ms>", an HMAC-SHA256 of
+// body + timestamp with the webhook secret (GHOST_WEBHOOK_SECRET), at most 5 minutes old. There is no
+// unsigned path; for a manual refresh use scripts/revalidate.mjs, which signs the same way.
 const MAX_AGE_MS = 5 * 60_000;
 
 function validSignature(header: string | null, body: string, secret: string | undefined): boolean {
@@ -24,8 +23,7 @@ function validSignature(header: string | null, body: string, secret: string | un
 
 export async function POST(req: NextRequest) {
   const body = await req.text();
-  const viaCloudflare = req.headers.get("cf-connecting-ip") !== null;
-  if (viaCloudflare && !validSignature(req.headers.get("x-ghost-signature"), body, process.env.GHOST_WEBHOOK_SECRET)) {
+  if (!validSignature(req.headers.get("x-ghost-signature"), body, process.env.GHOST_WEBHOOK_SECRET)) {
     return new Response("forbidden", { status: 403 });
   }
   revalidatePath("/");

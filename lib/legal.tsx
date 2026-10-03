@@ -113,7 +113,7 @@ export const privacy: Record<Lang, LegalDoc> = {
         label: "Nutzungsstatistik",
         body: <>
           <p>Für anonyme Nutzungsstatistiken verwende ich PostHog (PostHog Inc., USA) mit Datenspeicherung in der EU (Frankfurt). Die Anfragen laufen über diese Domain. PostHog arbeitet im cookielosen Modus: Es werden keine Cookies gesetzt und nichts auf deinem Gerät gespeichert.</p>
-          <p>Erfasst werden aufgerufene Seiten, Verweisquelle, Gerätetyp, Browser, Klicks auf der Seite und Ladezeiten. Um Besuche zu zählen, bildet PostHog aus IP-Adresse und User-Agent einen täglich wechselnden Hashwert. Die IP-Adresse selbst wird nicht gespeichert, ein Wiedererkennen über mehrere Tage ist nicht möglich.</p>
+          <p>Erfasst werden aufgerufene Seiten, Verweisquelle, Land (von Cloudflare aus der Verbindung ermittelt), Gerätetyp, Browser, Klicks auf der Seite und Ladezeiten. Um Besuche zu zählen, bildet PostHog aus IP-Adresse und User-Agent einen täglich wechselnden Hashwert. Die IP-Adresse selbst wird nicht gespeichert, ein Wiedererkennen über mehrere Tage ist nicht möglich.</p>
           <p>Rechtsgrundlage ist mein berechtigtes Interesse, die Website zu verbessern (Art. 6 Abs. 1 lit. f DSGVO). Mit PostHog besteht ein Auftragsverarbeitungsvertrag mit EU-Standardvertragsklauseln. Die Daten werden nach spätestens 12 Monaten gelöscht. Du kannst die Erfassung mit einem Content-Blocker verhindern.</p>
         </>,
       },
@@ -176,7 +176,7 @@ export const privacy: Record<Lang, LegalDoc> = {
         label: "Usage statistics",
         body: <>
           <p>For anonymous usage statistics I use PostHog (PostHog Inc., USA) with data stored in the EU (Frankfurt). Requests go through this domain. PostHog runs in cookieless mode: no cookies are set and nothing is stored on your device.</p>
-          <p>Collected are pages viewed, referrer, device type, browser, clicks on the page and loading times. To count visits, PostHog derives a daily rotating hash from IP address and user agent. The IP address itself is not stored, and you cannot be recognised across days.</p>
+          <p>Collected are pages viewed, referrer, country (determined by Cloudflare from the connection), device type, browser, clicks on the page and loading times. To count visits, PostHog derives a daily rotating hash from IP address and user agent. The IP address itself is not stored, and you cannot be recognised across days.</p>
           <p>The legal basis is my legitimate interest in improving the website (Art. 6(1)(f) GDPR). A data processing agreement with EU Standard Contractual Clauses is in place with PostHog. The data is deleted after 12 months at the latest. You can prevent collection with a content blocker.</p>
         </>,
       },
