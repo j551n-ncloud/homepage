@@ -1,40 +1,58 @@
 # j551n.com
 
-Personal portfolio site built with Next.js 16, Tailwind CSS v4, and Swiss Modernism design principles. Self-hosted on Docker via GitHub Actions CI/CD.
+Personal portfolio of Johannes Nguyen, in English and German. Next.js 16 with a Swiss Modernism design, self-hosted on Docker and deployed through a GitOps pipeline.
 
-**Live:** [j551n.com](https://j551n.com)
-
----
+**Live:** [j551n.com](https://j551n.com) · [j551n.com/de](https://j551n.com/de)
 
 ## Stack
 
 | Layer | Tech |
 |---|---|
-| Framework | Next.js 16.2.9 (App Router, React 19) |
-| Styling | Tailwind CSS v4, CSS custom properties |
-| Font | Inter via `next/font/google` |
-| Language | TypeScript |
-| Runtime | Node.js 22 Alpine (standalone output) |
-| Registry | GitHub Container Registry (ghcr.io) |
-| CI/CD | GitHub Actions |
+| Framework | Next.js 16 (App Router, React 19, React Compiler), TypeScript |
+| Styling | Tailwind CSS v4 with a single custom `globals.css` |
+| Font | Inter via `next/font` |
+| Analytics | PostHog, EU cloud, cookieless |
+| Runtime | Node.js on Alpine, standalone output, port `8080` |
+| Registry | `ghcr.io/j551n-ncloud/homepage` |
 
----
+## Structure
 
-## Design
-
-Swiss Modernism / International Typographic Style. Two-column label/content grid, horizontal rules, tight typographic hierarchy. No JavaScript UI frameworks for layout, just CSS Grid and custom properties.
-
-Key tokens:
-
-| Token | Value |
+| Path | Contents |
 |---|---|
-| `--bg` | `#f6f6f4` |
-| `--text` | `#141414` |
-| `--accent` | `#0047b3` |
-| `--muted` | `#6c6c6c` |
-| `--label-w` | `180px` |
+| `app/(en)/`, `app/(de)/de/` | English and German routes, each with its own root layout for `<html lang>` |
+| `lib/content.ts` | All page text in both languages: hero, about, skills, projects, experience |
+| `lib/legal.tsx` | Legal notice and privacy policy in both languages |
+| `components/HomePage.tsx` | The page itself, rendered for either language |
+| `lib/blog.ts` | Latest posts from the Ghost RSS feed and live tag checks |
+| `app/api/` | `revalidate` (Ghost webhook) and `geo` (country for analytics) |
+| `proxy.ts` | Access log with the real client IP from Cloudflare |
+| `public/Johannes_Nguyen_Lebenslauf.pdf` | Web CV, built in the separate `Bewerbung` repo with `make web` |
 
----
+## Features
+
+- **Bilingual.** `/` and `/de` with `hreflang`, a language switch in the nav and translated legal pages.
+- **Blog integration.** The latest posts from [blog.j551n.com](https://blog.j551n.com) are pulled via RSS. Skills link to their blog tag only while that tag page exists, and every skill category links to its section on the blog's Topics page.
+- **Instant updates.** Ghost calls `/api/revalidate` when a post is published, edited or unpublished. Every request must carry a valid `X-Ghost-Signature` (HMAC-SHA256 with `GHOST_WEBHOOK_SECRET`, at most 5 minutes old). Without a webhook, pages revalidate hourly.
+- **Cookieless analytics.** PostHog runs in cookieless mode and is proxied through `/ingest`. The country comes from Cloudflare via `/api/geo`, because cookieless mode strips the IP before PostHog's GeoIP lookup. CV downloads are tracked as a `cv_download` event.
+- **Structured data.** JSON-LD with credentials, `knowsAbout` and profiles.
+
+## Tracking links
+
+Links with `utm_source` show up in PostHog under Web analytics, Sources, and are attached to CV downloads:
+
+```
+https://j551n.com/?utm_source=<company>   # one per application
+https://j551n.com/?utm_source=card        # business card QR code
+https://j551n.com/?utm_source=linkedin
+```
+
+## Configuration
+
+| Variable | When | Purpose |
+|---|---|---|
+| `NEXT_PUBLIC_POSTHOG_KEY` | build | PostHog project key, from the GitHub variable `POSTHOG_KEY`. Without it, analytics is off |
+| `NEXT_PUBLIC_APP_VERSION` | build | Version shown in the footer, set from the `v*` tag |
+| `GHOST_WEBHOOK_SECRET` | runtime | Shared secret of the Ghost webhooks, from the deploy repo's vault |
 
 ## Development
 
@@ -43,29 +61,21 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000). Put `NEXT_PUBLIC_POSTHOG_KEY` in `.env.local` to test analytics.
 
----
-
-## Docker
+Manual cache refresh, signed like a Ghost webhook:
 
 ```bash
-# pull latest
-docker pull ghcr.io/j551n-ncloud/homepage:latest
-
-# or run with compose
-docker compose up -d
+GHOST_WEBHOOK_SECRET=<secret> node scripts/revalidate.mjs
 ```
 
-Runs on port `8080`.
+## Build and deploy
 
----
+A `v*` tag builds the image in GitHub Actions and pushes it to ghcr.io with the version baked into the footer. Pushes to `main` build the `edge` tag only. The release notes get the image digest and pull command.
 
-## CI/CD
+Production runs from the private `services/deploy` repo: the image version is pinned in `compose/homepage/docker-compose.yml`, and bumping that pin rolls it out with Ansible after a Proxmox snapshot.
 
-Pushing to `main` or creating a `v*` tag triggers a GitHub Actions build that pushes to `ghcr.io/j551n-ncloud/homepage`. The release notes are automatically updated with the image digest and pull command.
-
-The version shown in the site footer comes from the `v*` tag itself (`NEXT_PUBLIC_APP_VERSION`), not from `package.json`. `package.json`'s `version` field is frozen and no longer bumped per release.
+`package.json`'s `version` field is frozen; the footer version comes from the tag.
 
 ## License
 
