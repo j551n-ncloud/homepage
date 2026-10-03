@@ -100,7 +100,7 @@ export const content: Record<Lang, Content> = {
     nav: { about: "About", skills: "Skills", projects: "Projects", experience: "Experience", contact: "Contact" },
     langSwitch: { href: "/de", label: "DE", aria: "Deutsche Version" },
     hero: {
-      role: "IT Specialist (IHK)",
+      role: "IT Specialist",
       avail: "Available",
       headlineStart: "Linux, Ansible and Kubernetes for research infrastructure at the ",
       headlineStrong: "German Cancer Research Center (DKFZ)",
@@ -205,7 +205,7 @@ export const content: Record<Lang, Content> = {
     nav: { about: "Über mich", skills: "Skills", projects: "Projekte", experience: "Werdegang", contact: "Kontakt" },
     langSwitch: { href: "/", label: "EN", aria: "English version" },
     hero: {
-      role: "Fachinformatiker (IHK)",
+      role: "Fachinformatiker",
       avail: "Verfügbar",
       headlineStart: "Linux, Ansible und Kubernetes für die Forschungsinfrastruktur am ",
       headlineStrong: "Deutschen Krebsforschungszentrum (DKFZ)",

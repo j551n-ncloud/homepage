@@ -4,6 +4,7 @@ import Nav from "@/components/Nav";
 import Reveal from "@/components/Reveal";
 import EmailCopy from "@/components/EmailCopy";
 import Counter from "@/components/Counter";
+import CvLink from "@/components/CvLink";
 import { content, type Lang } from "@/lib/content";
 import { getLatestPosts, getLiveTags, tagUrl } from "@/lib/blog";
 import { legalPaths } from "@/lib/legal";
@@ -98,7 +99,7 @@ export default async function HomePage({ lang }: { lang: Lang }) {
                   <strong>{t.hero.headlineStrong}</strong>{t.hero.headlineEnd}
                 </p>
                 <div className="hero-btns">
-                  <a href={CV_PATH} className="btn btn-fill" download>{t.hero.cv}</a>
+                  <CvLink href={CV_PATH} lang={lang} className="btn btn-fill">{t.hero.cv}</CvLink>
                   <a href="#contact" className="btn btn-outline">{t.hero.contact}</a>
                 </div>
               </div>
