@@ -10,8 +10,11 @@ import { getLatestPosts, getLiveTags, tagUrl } from "@/lib/blog";
 import { legalPaths } from "@/lib/legal";
 
 const version = (process.env.NEXT_PUBLIC_APP_VERSION ?? "dev").replace(/^v/, "");
-// web variant without phone and street address, built from the Bewerbung repo (make web)
-const CV_PATH = "/Johannes_Nguyen_Lebenslauf.pdf";
+// web variants without phone and street address, built from the Bewerbung repo (make web)
+const CV_PATHS: Record<Lang, string> = {
+  en: "/Johannes_Nguyen_CV.pdf",
+  de: "/Johannes_Nguyen_Lebenslauf.pdf",
+};
 
 const personJsonLd = {
   "@context": "https://schema.org",
@@ -99,7 +102,7 @@ export default async function HomePage({ lang }: { lang: Lang }) {
                   <strong>{t.hero.headlineStrong}</strong>{t.hero.headlineEnd}
                 </p>
                 <div className="hero-btns">
-                  <CvLink href={CV_PATH} lang={lang} className="btn btn-fill">{t.hero.cv}</CvLink>
+                  <CvLink href={CV_PATHS[lang]} lang={lang} className="btn btn-fill">{t.hero.cv}</CvLink>
                   <a href="#contact" className="btn btn-outline">{t.hero.contact}</a>
                 </div>
               </div>

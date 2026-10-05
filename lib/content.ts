@@ -106,7 +106,7 @@ export const content: Record<Lang, Content> = {
       headlineStrong: "German Cancer Research Center (DKFZ)",
       headlineEnd: ", from the HPC cluster to the datacenter rack.",
       contact: "Contact me",
-      cv: "CV (PDF, German)",
+      cv: "CV (PDF)",
     },
     about: {
       label: "About",

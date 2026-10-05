@@ -26,7 +26,7 @@ Personal portfolio of Johannes Nguyen, in English and German. Next.js 16 with a 
 | `lib/blog.ts` | Latest posts from the Ghost RSS feed and live tag checks |
 | `app/api/` | `revalidate` (Ghost webhook) and `geo` (country for analytics) |
 | `proxy.ts` | Access log with the real client IP from Cloudflare |
-| `public/Johannes_Nguyen_Lebenslauf.pdf` | Web CV, built in the separate `Bewerbung` repo with `make web` |
+| `public/Johannes_Nguyen_CV.pdf`, `public/Johannes_Nguyen_Lebenslauf.pdf` | Web CV in English and German, built in the separate `Bewerbung` repo with `make web` |
 
 ## Features
 
