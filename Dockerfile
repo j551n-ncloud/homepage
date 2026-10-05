@@ -26,7 +26,9 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
-RUN addgroup --system --gid 1001 nodejs \
+# npm is only needed to build; dropping it removes the CVEs in its bundled dependencies
+RUN rm -rf /usr/local/lib/node_modules/npm /usr/local/bin/npm /usr/local/bin/npx /opt/yarn* /usr/local/bin/yarn /usr/local/bin/yarnpkg \
+ && addgroup --system --gid 1001 nodejs \
  && adduser  --system --uid 1001 nextjs
 
 COPY --from=builder /app/public ./public
