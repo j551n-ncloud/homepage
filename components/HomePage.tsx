@@ -5,6 +5,7 @@ import Reveal from "@/components/Reveal";
 import EmailCopy from "@/components/EmailCopy";
 import Counter from "@/components/Counter";
 import CvLink from "@/components/CvLink";
+import DitherField from "@/components/DitherField";
 import { content, type Lang } from "@/lib/content";
 import { getLatestPosts, getLiveTags, tagUrl } from "@/lib/blog";
 import { legalPaths } from "@/lib/legal";
@@ -78,11 +79,11 @@ export default async function HomePage({ lang }: { lang: Lang }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
-      <link rel="preload" as="image" href="/bg.jpg" />
       <Nav lang={lang} />
 
       {/* HERO */}
       <section className="hero-section">
+        <DitherField />
         <div className="hero-inner">
           <Reveal>
             <h1 className="hero-name">Johannes<br />Nguyen</h1>

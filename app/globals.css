@@ -76,7 +76,7 @@ section { padding: 5.5rem 0; border-top: 1px solid var(--rule); }
 /* ── HERO ── */
 .hero-section {
   position: relative;
-  background: url('/bg.jpg') center / cover no-repeat;
+  background: #0b1013 url('/bg.jpg') center / cover no-repeat;
   min-height: calc(100vh - 56px);
   min-height: calc(100dvh - 56px);
   display: flex; flex-direction: column;
@@ -85,31 +85,32 @@ section { padding: 5.5rem 0; border-top: 1px solid var(--rule); }
   border-top: none;
   overflow: hidden;
 }
-/* animated gradient sheen over the (static) photo */
-.hero-section::before {
+/* animated dither field (components/DitherField.tsx) over the darkened photo; the CSS dots are the no-WebGL fallback */
+.dither-field {
+  position: absolute; inset: 0; overflow: hidden;
+  background:
+    linear-gradient(to top, rgba(8,12,14,.92) 0%, rgba(8,12,14,.78) 55%, rgba(8,12,14,.82) 100%),
+    radial-gradient(120% 90% at 50% 50%, rgba(0,71,179,.12), transparent 62%);
+}
+.dither-field::before {
   content: "";
   position: absolute; inset: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,.14) 55%, rgba(0,0,0,.20) 100%),
-    linear-gradient(120deg,
-      rgba(8,12,14,.66) 0%,
-      rgba(0,71,179,.40) 26%,
-      rgba(8,15,17,.54) 50%,
-      rgba(94,234,212,.30) 74%,
-      rgba(8,12,14,.66) 100%);
-  background-size: 100% 100%, 300% 300%;
-  background-position: 0 0, 0% 50%;
-  animation: heroGradient 35s ease-in-out infinite;
+  background-image: radial-gradient(circle, rgba(138,138,147,.3) .8px, transparent 1.1px);
+  background-size: 4px 4px;
+  -webkit-mask-image: radial-gradient(58% 74% at 22% 22%, #000, transparent 72%), radial-gradient(46% 62% at 78% 44%, #000, transparent 70%), radial-gradient(72% 52% at 46% 86%, #000, transparent 74%);
+  mask-image: radial-gradient(58% 74% at 22% 22%, #000, transparent 72%), radial-gradient(46% 62% at 78% 44%, #000, transparent 70%), radial-gradient(72% 52% at 46% 86%, #000, transparent 74%);
 }
-@keyframes heroGradient {
-  0%   { background-position: 0 0, 100% 50%; }
-  50%  { background-position: 0 0, 0% 50%; }
-  100% { background-position: 0 0, 100% 50%; }
+.dither-field-canvas {
+  position: relative; display: block;
+  /* keep dots out from behind the headline and buttons so the text stays readable */
+  -webkit-mask-image: radial-gradient(ellipse 42% 30% at 38% 80%, transparent 35%, #000 100%);
+  mask-image: radial-gradient(ellipse 42% 30% at 38% 80%, transparent 35%, #000 100%);
+  width: 100%; height: 100%;
+  opacity: 0; transition: opacity 350ms ease-out;
 }
-@media (prefers-reduced-motion: reduce) {
-  .hero-section::before { animation: none; }
-}
+.dither-field-canvas.live { opacity: 1; }
+/* the canvas is transparent, so drop the static fallback dots once it is running */
+.dither-field:has(.dither-field-canvas.live)::before { display: none; }
 .hero-inner { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; width: 100%; }
 .hero-name {
   font-size: clamp(3.25rem, 8vw, 7rem);
@@ -147,7 +148,7 @@ section { padding: 5.5rem 0; border-top: 1px solid var(--rule); }
 .hero-right { display: flex; flex-direction: column; gap: 1.5rem; padding-top: .125rem; }
 .hero-headline {
   font-size: clamp(.925rem, 1.4vw, 1.15rem);
-  font-weight: 400; color: rgba(255,255,255,.72);
+  font-weight: 400; color: rgba(255,255,255,.86);
   line-height: 1.7; max-width: 600px;
   text-wrap: balance;
 }
@@ -400,6 +401,10 @@ a.post-item:hover .exp-company { color: var(--accent); transition: color 200ms e
   .section-row, .hero-bottom { grid-template-columns: 1fr; gap: 1.25rem; }
   .section-label { position: static; }
   .hero-btns { flex-direction: column; width: fit-content; }
+  .dither-field-canvas {
+    -webkit-mask-image: radial-gradient(ellipse 95% 32% at 35% 72%, transparent 40%, #000 100%);
+    mask-image: radial-gradient(ellipse 95% 32% at 35% 72%, transparent 40%, #000 100%);
+  }
   .skills-groups, .stats, .contact-list { grid-template-columns: 1fr; }
   .contact-item { border-right: none; border-bottom: 1px solid var(--rule); padding: 1rem 0 !important; }
   .exp-item { grid-template-columns: 1fr; gap: .3rem; }
