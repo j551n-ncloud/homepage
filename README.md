@@ -12,7 +12,7 @@ Personal portfolio of Johannes Nguyen, in English and German. Next.js 16 with a 
 | Styling | Tailwind CSS v4 with a single custom `globals.css` |
 | Font | Inter via `next/font` |
 | Analytics | PostHog, EU cloud, cookieless |
-| Runtime | Node.js on Chainguard (Wolfi), standalone output, port `8080` |
+| Runtime | Node.js 26 on Chainguard (Wolfi), standalone output, port `8080`, no shell |
 | Registry | `ghcr.io/j551n-ncloud/homepage` |
 
 ## Structure
@@ -35,6 +35,7 @@ Personal portfolio of Johannes Nguyen, in English and German. Next.js 16 with a 
 - **Instant updates.** Ghost calls `/api/revalidate` when a post is published, edited or unpublished. Every request must carry a valid `X-Ghost-Signature` (HMAC-SHA256 with `GHOST_WEBHOOK_SECRET`, at most 5 minutes old). Without a webhook, pages revalidate hourly.
 - **Cookieless analytics.** PostHog runs in cookieless mode and is proxied through `/ingest`. The country comes from Cloudflare via `/api/geo`, because cookieless mode strips the IP before PostHog's GeoIP lookup. CV downloads are tracked as a `cv_download` event.
 - **Structured data.** JSON-LD with credentials, `knowsAbout` and profiles.
+- **Security headers.** Set in `next.config.ts` for every route: `X-Content-Type-Options`, `X-Frame-Options` with `frame-ancestors 'none'`, `Referrer-Policy` and a `Permissions-Policy` that turns off camera, microphone, geolocation, payment, USB and Topics. `X-Powered-By` is off. HSTS comes from Cloudflare.
 
 ## Tracking links
 
@@ -76,6 +77,12 @@ A `v*` tag builds the image in GitHub Actions and pushes it to ghcr.io with the 
 Production runs from the private `services/deploy` repo: the image version is pinned in `compose/homepage/docker-compose.yml`, and bumping that pin rolls it out with Ansible after a Proxmox snapshot.
 
 `package.json`'s `version` field is frozen; the footer version comes from the tag.
+
+### Image
+
+Both stages are Chainguard's Wolfi Node images (glibc): `node:latest-dev` builds, `node:latest` runs. The runner strips npm, node-gyp, the nghttp2 client tools and busybox with a small Node script, so it has no shell and `/usr/bin` holds only `node`, `dumb-init` and `ld.so`/`ldconfig`. The app runs as `node` (uid 65532) and owns `.next` so ISR can write its cache. Trivy reports no OS package CVEs.
+
+Without a shell, `docker exec homepage-web sh` fails; inspect with `docker exec homepage-web node -e "…"` instead. The free Chainguard tier only publishes `latest`, so each build picks up the current Node release.
 
 ## License
 
