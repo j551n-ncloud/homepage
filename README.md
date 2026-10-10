@@ -12,7 +12,7 @@ Personal portfolio of Johannes Nguyen, in English and German. Next.js 16 with a 
 | Styling | Tailwind CSS v4 with a single custom `globals.css` |
 | Font | Inter via `next/font` |
 | Analytics | PostHog, EU cloud, cookieless |
-| Runtime | Node.js on Alpine, standalone output, port `8080` |
+| Runtime | Node.js on Chainguard (Wolfi), standalone output, port `8080` |
 | Registry | `ghcr.io/j551n-ncloud/homepage` |
 
 ## Structure

@@ -1,9 +1,9 @@
-FROM node:26-alpine3.24 AS base
-RUN npm install -g npm@12
+# Wolfi (glibc) for both stages; -dev adds npm and a shell for building
+FROM cgr.dev/chainguard/node:latest-dev AS base
+USER root
 
 # ── deps ──────────────────────────────────────────────────────────────────────
 FROM base AS deps
-RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
@@ -20,24 +20,24 @@ ENV NEXT_PUBLIC_POSTHOG_KEY=$NEXT_PUBLIC_POSTHOG_KEY
 RUN npm run build
 
 # ── runner ────────────────────────────────────────────────────────────────────
-FROM base AS runner
+FROM cgr.dev/chainguard/node:latest AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
 # npm is only needed to build; dropping it removes the CVEs in its bundled dependencies
-RUN rm -rf /usr/local/lib/node_modules/npm /usr/local/bin/npm /usr/local/bin/npx /opt/yarn* /usr/local/bin/yarn /usr/local/bin/yarnpkg \
- && addgroup --system --gid 1001 nodejs \
- && adduser  --system --uid 1001 nextjs
+USER root
+RUN rm -rf /usr/lib/node_modules/npm /usr/bin/npm /usr/bin/npx
 
 COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=node:node /app/.next/standalone ./
+COPY --from=builder --chown=node:node /app/.next/static ./.next/static
 
-USER nextjs
+USER node
 EXPOSE 8080
 ENV PORT=8080
 ENV HOSTNAME="0.0.0.0"
 
-CMD ["node", "server.js"]
+# the image entrypoint is node
+CMD ["server.js"]
