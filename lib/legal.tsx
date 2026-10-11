@@ -87,7 +87,7 @@ export const privacy: Record<Lang, LegalDoc> = {
       },
       {
         label: "Hosting",
-        body: <p>Die Website läuft auf eigener Hardware in Deutschland. Ein externer Hosting-Anbieter ist nicht beteiligt.</p>,
+        body: <p>Die Website läuft auf eigener Hardware in Deutschland. Jede Anfrage geht zuerst an Cloudflare (siehe unten), dann an einen Reverse Proxy (Pangolin) auf einem virtuellen Server der IONOS SE, Elgendorfer Str. 57, 56410 Montabaur, und von dort verschlüsselt an meine Hardware.</p>,
       },
       {
         label: "Cloudflare",
@@ -106,7 +106,7 @@ export const privacy: Record<Lang, LegalDoc> = {
             <li>Aufgerufene Seite</li>
             <li>Browser und Betriebssystem (User-Agent)</li>
           </ul>
-          <p>Die Daten dienen dazu, Missbrauch und Angriffe zu erkennen, und werden nicht mit anderen Quellen zusammengeführt. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Die Logs werden automatisch rotiert und spätestens mit der nächsten Aktualisierung der Website gelöscht.</p>
+          <p>Die Daten dienen dazu, Missbrauch und Angriffe zu erkennen, und werden nicht mit anderen Quellen zusammengeführt. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Die Logs der Website werden automatisch rotiert und spätestens mit der nächsten Aktualisierung gelöscht. Der Reverse Proxy führt aus denselben Sicherheitsgründen ein eigenes Zugriffsprotokoll, das nach 3 Tagen automatisch gelöscht wird.</p>
         </>,
       },
       {
@@ -136,7 +136,7 @@ export const privacy: Record<Lang, LegalDoc> = {
           <p>Außerdem kannst du dich bei einer Datenschutz-Aufsichtsbehörde beschweren (Art. 77 DSGVO). Zuständig ist der <a href={LFDI} target="_blank" rel="noopener noreferrer">Landesbeauftragte für den Datenschutz und die Informationsfreiheit Baden-Württemberg</a>, Lautenschlagerstraße 20, 70173 Stuttgart.</p>
         </>,
       },
-      { label: "Stand", body: <p>September 2026</p> },
+      { label: "Stand", body: <p>Oktober 2026</p> },
     ],
   },
   en: {
@@ -150,7 +150,7 @@ export const privacy: Record<Lang, LegalDoc> = {
       },
       {
         label: "Hosting",
-        body: <p>The website runs on my own hardware in Germany. No external hosting provider is involved.</p>,
+        body: <p>The website runs on my own hardware in Germany. Every request goes first to Cloudflare (see below), then to a reverse proxy (Pangolin) on a virtual server from IONOS SE, Elgendorfer Str. 57, 56410 Montabaur, Germany, and from there, encrypted, to my hardware.</p>,
       },
       {
         label: "Cloudflare",
@@ -169,7 +169,7 @@ export const privacy: Record<Lang, LegalDoc> = {
             <li>Requested page</li>
             <li>Browser and operating system (user agent)</li>
           </ul>
-          <p>This data is used to detect abuse and attacks and is not combined with other sources. The legal basis is Art. 6(1)(f) GDPR. The logs are rotated automatically and deleted with the next update of the website at the latest.</p>
+          <p>This data is used to detect abuse and attacks and is not combined with other sources. The legal basis is Art. 6(1)(f) GDPR. The website&apos;s logs are rotated automatically and deleted with the next update at the latest. For the same security reasons, the reverse proxy keeps its own access log, which is deleted automatically after 3 days.</p>
         </>,
       },
       {
@@ -199,7 +199,7 @@ export const privacy: Record<Lang, LegalDoc> = {
           <p>You also have the right to lodge a complaint with a data protection supervisory authority (Art. 77 GDPR). The competent authority is the <a href={LFDI} target="_blank" rel="noopener noreferrer">State Commissioner for Data Protection and Freedom of Information Baden-Württemberg</a>, Lautenschlagerstraße 20, 70173 Stuttgart, Germany.</p>
         </>,
       },
-      { label: "Last updated", body: <p>September 2026</p> },
+      { label: "Last updated", body: <p>October 2026</p> },
     ],
   },
 };
