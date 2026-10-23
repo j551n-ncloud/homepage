@@ -159,6 +159,14 @@ export const content: Record<Lang, Content> = {
           links: [{ href: `${gh}/git-iac`, label: "GitHub" }, { href: "https://blog.j551n.com/two-repos-one-pipeline-self-hosted-gitops-with-gitlab-ci-harbor-and-ansible/", label: "Blog" }],
         },
         {
+          kind: "Homelab · Open source",
+          title: "k3s-lxc: HA k3s on Proxmox",
+          problem: "CI runners and the LAN reverse proxy each ran in their own LXC or VM, with no failover and a lot of idle RAM.",
+          solution: "A three-node k3s cluster in privileged Proxmox LXCs with embedded etcd, one node per host. kube-vip floats the LAN IP, Traefik proxies the LAN with a Let's Encrypt wildcard from cert-manager (Cloudflare DNS-01), and GitLab runners run as pods. A merge request shows the diff, the merge deploys through the GitLab agent.",
+          stack: "k3s · Proxmox LXC · Traefik · kube-vip · GitLab CI",
+          links: [{ href: `${gh}/k3s-lxc`, label: "GitHub" }],
+        },
+        {
           kind: "Work · ODCF",
           title: "AWX & Ascender on Kubernetes",
           problem: "Ansible runs happened from individual machines, with no shared overview of who ran what.",
@@ -262,6 +270,14 @@ export const content: Record<Lang, Content> = {
           solution: "Getrennte Build- und Deploy-Pipelines: Images mit Commit-SHA, Trivy-Scan und Ablage in Harbor. Ein Merge Request hebt den Pin, der Merge rollt per Ansible nach einem Proxmox-Snapshot aus. Verteilt 15 Docker-Stacks auf 5 Hosts.",
           stack: "GitLab CI · Ansible · Harbor · Trivy",
           links: [{ href: `${gh}/git-iac`, label: "GitHub" }, { href: "https://blog.j551n.com/two-repos-one-pipeline-self-hosted-gitops-with-gitlab-ci-harbor-and-ansible/", label: "Blog" }],
+        },
+        {
+          kind: "Homelab · Open Source",
+          title: "k3s-lxc: HA-k3s auf Proxmox",
+          problem: "CI-Runner und der LAN-Reverse-Proxy liefen jeweils in eigenen LXCs oder VMs, ohne Ausfallsicherheit und mit viel ungenutztem RAM.",
+          solution: "Ein k3s-Cluster mit drei Knoten in privilegierten Proxmox-LXCs mit eingebettetem etcd, ein Knoten pro Host. kube-vip verschiebt die LAN-IP, Traefik ist der LAN-Proxy mit Let's-Encrypt-Wildcard von cert-manager (Cloudflare DNS-01), die GitLab-Runner laufen als Pods. Ein Merge Request zeigt den Diff, der Merge rollt über den GitLab-Agent aus.",
+          stack: "k3s · Proxmox LXC · Traefik · kube-vip · GitLab CI",
+          links: [{ href: `${gh}/k3s-lxc`, label: "GitHub" }],
         },
         {
           kind: "Arbeit · ODCF",
