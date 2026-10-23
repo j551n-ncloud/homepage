@@ -143,14 +143,6 @@ export const content: Record<Lang, Content> = {
           links: [{ href: `${gh}/glance-public`, label: "GitHub" }, { href: "https://blog.j551n.com/from-dashboard-to-assistant-backend-glance-with-73-mcp-tools/", label: "Blog" }],
         },
         {
-          kind: "Work · ODCF · Open source",
-          title: "systemd-resource-control",
-          problem: "On shared cluster nodes, a single user could use up all CPU and memory and slow down everyone else.",
-          solution: "An Ansible role that limits CPU and RAM per user with systemd slices, applied at login through PAM. In production on all 5 worker nodes of the HPC cluster, for every cluster user.",
-          stack: "Ansible · systemd · PAM",
-          links: [{ href: `${gh}/systemd-resource-control`, label: "GitHub" }, { href: "https://blog.j551n.com/per-user-cpu-and-ram-limits-on-shared-cluster-nodes-with-systemd-and-pam/", label: "Blog" }],
-        },
-        {
           kind: "Homelab · Open source",
           title: "git-iac: self-hosted GitOps",
           problem: "Updating services by hand across many hosts is slow, and a bad update is hard to roll back.",
@@ -164,7 +156,7 @@ export const content: Record<Lang, Content> = {
           problem: "CI runners and the LAN reverse proxy each ran in their own LXC or VM, with no failover and a lot of idle RAM.",
           solution: "A three-node k3s cluster in privileged Proxmox LXCs with embedded etcd, one node per host. kube-vip floats the LAN IP, Traefik proxies the LAN with a Let's Encrypt wildcard from cert-manager (Cloudflare DNS-01), and GitLab runners run as pods. A merge request shows the diff, the merge deploys through the GitLab agent.",
           stack: "k3s · Proxmox LXC · Traefik · kube-vip · GitLab CI",
-          links: [{ href: `${gh}/k3s-lxc`, label: "GitHub" }],
+          links: [{ href: `${gh}/k3s-lxc`, label: "GitHub" }, { href: "https://blog.j551n.com/one-dead-psu-one-bad-ram-stick-rebuilding-my-proxmox-cluster-in-a-night/", label: "Blog" }],
         },
         {
           kind: "Work · ODCF",
@@ -256,14 +248,6 @@ export const content: Record<Lang, Content> = {
           links: [{ href: `${gh}/glance-public`, label: "GitHub" }, { href: "https://blog.j551n.com/from-dashboard-to-assistant-backend-glance-with-73-mcp-tools/", label: "Blog" }],
         },
         {
-          kind: "Arbeit · ODCF · Open Source",
-          title: "systemd-resource-control",
-          problem: "Auf geteilten Cluster-Knoten konnte ein einzelner Benutzer CPU und RAM komplett belegen und alle anderen ausbremsen.",
-          solution: "Eine Ansible-Rolle, die CPU und RAM pro Benutzer über systemd-Slices begrenzt, angewendet beim Login per PAM. Produktiv auf allen 5 Worker-Knoten des HPC-Clusters, für jeden Cluster-Benutzer.",
-          stack: "Ansible · systemd · PAM",
-          links: [{ href: `${gh}/systemd-resource-control`, label: "GitHub" }, { href: "https://blog.j551n.com/per-user-cpu-and-ram-limits-on-shared-cluster-nodes-with-systemd-and-pam/", label: "Blog" }],
-        },
-        {
           kind: "Homelab · Open Source",
           title: "git-iac: Self-hosted GitOps",
           problem: "Dienste auf vielen Hosts von Hand zu aktualisieren ist langsam, und ein fehlerhaftes Update lässt sich schwer zurückrollen.",
@@ -277,7 +261,7 @@ export const content: Record<Lang, Content> = {
           problem: "CI-Runner und der LAN-Reverse-Proxy liefen jeweils in eigenen LXCs oder VMs, ohne Ausfallsicherheit und mit viel ungenutztem RAM.",
           solution: "Ein k3s-Cluster mit drei Knoten in privilegierten Proxmox-LXCs mit eingebettetem etcd, ein Knoten pro Host. kube-vip verschiebt die LAN-IP, Traefik ist der LAN-Proxy mit Let's-Encrypt-Wildcard von cert-manager (Cloudflare DNS-01), die GitLab-Runner laufen als Pods. Ein Merge Request zeigt den Diff, der Merge rollt über den GitLab-Agent aus.",
           stack: "k3s · Proxmox LXC · Traefik · kube-vip · GitLab CI",
-          links: [{ href: `${gh}/k3s-lxc`, label: "GitHub" }],
+          links: [{ href: `${gh}/k3s-lxc`, label: "GitHub" }, { href: "https://blog.j551n.com/one-dead-psu-one-bad-ram-stick-rebuilding-my-proxmox-cluster-in-a-night/", label: "Blog" }],
         },
         {
           kind: "Arbeit · ODCF",
