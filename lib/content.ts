@@ -70,6 +70,7 @@ const skillGroups = (de: boolean): SkillGroup[] => [
     items: [
       { name: de ? "Verzeichnis & SSO" : "Directory & SSO", tags: "LDAP/AD, ADFS, OIDC, Pocket ID", tag: "identity" },
       { name: "Security", tags: "CrowdSec, Trivy, firewalld, TLS/PKI", tag: "security" },
+      { name: "GxP / CSV", tags: de ? "GAMP 5, risikobasierte Validierung, IQ/OQ/PQ, Traceability" : "GAMP 5, risk-based validation, IQ/OQ/PQ, traceability" },
     ],
   },
   {
@@ -111,7 +112,7 @@ export const content: Record<Lang, Content> = {
     about: {
       label: "About",
       paragraphs: [
-        "I am an IT specialist for system integration at the German Cancer Research Center (DKFZ), where I qualified in July 2026 after my apprenticeship (IHK). I work in the ODCF team on Linux, automation, Kubernetes and the HPC cluster. Next up: computerized system validation in a GxP environment.",
+        "I am an IT specialist for system integration at the German Cancer Research Center (DKFZ), where I qualified in July 2026 after my apprenticeship (IHK). I work in the ODCF team on Linux, automation, Kubernetes and the HPC cluster. I also validate computerized systems in a GxP environment, starting with the department's self-hosted password manager.",
         "I get up to speed with new technology quickly and take it from first comparison to production: evaluate the options, present them to the team, implement, hand over. I trace faults systematically to their root cause instead of patching symptoms, a way of working I learned in the workshop as an automotive mechatronics technician.",
       ],
       stats: [
@@ -178,6 +179,7 @@ export const content: Record<Lang, Content> = {
             { label: "Projects to production", text: "AWX and Ascender on k3s, Bitwarden, Harbor, EasyBuild, per-user CPU and RAM limits" },
             { label: "Identity & logging", text: "LDAP/AD and ADFS login for services, central logging with Loki and Grafana Alloy" },
             { label: "Datacenter", text: "racks, cabling and hosts planned in NetBox, Dell PowerEdge via iDRAC" },
+            { label: "GxP validation", text: "risk-based validation of the self-hosted password manager per GAMP 5: requirements, validation plan, IQ/OQ/PQ, work instructions" },
             { label: "Documentation", text: "SOPs for recurring procedures" },
           ],
         },
@@ -216,7 +218,7 @@ export const content: Record<Lang, Content> = {
     about: {
       label: "Über mich",
       paragraphs: [
-        "Ich bin Fachinformatiker für Systemintegration am Deutschen Krebsforschungszentrum (DKFZ), wo ich im Juli 2026 meine Ausbildung (IHK) abgeschlossen habe. Im ODCF-Team arbeite ich mit Linux, Automatisierung, Kubernetes und dem HPC-Cluster. Als Nächstes kommt die Validierung computergestützter Systeme im GxP-Umfeld dazu.",
+        "Ich bin Fachinformatiker für Systemintegration am Deutschen Krebsforschungszentrum (DKFZ), wo ich im Juli 2026 meine Ausbildung (IHK) abgeschlossen habe. Im ODCF-Team arbeite ich mit Linux, Automatisierung, Kubernetes und dem HPC-Cluster. Außerdem validiere ich computergestützte Systeme im GxP-Umfeld, angefangen mit dem selbst gehosteten Passwortmanager der Abteilung.",
         "Ich arbeite mich schnell in neue Technologien ein und bringe sie vom ersten Vergleich bis in den Produktivbetrieb: Optionen bewerten, im Team vorstellen, umsetzen, übergeben. Fehler verfolge ich systematisch bis zur Ursache, statt nur Symptome zu beheben. Diese Arbeitsweise habe ich als Kfz-Mechatroniker in der Werkstatt gelernt.",
       ],
       stats: [
@@ -283,6 +285,7 @@ export const content: Record<Lang, Content> = {
             { label: "Projekte bis zum Produktivbetrieb", text: "AWX und Ascender auf k3s, Bitwarden, Harbor, EasyBuild, CPU- und RAM-Limits pro Benutzer" },
             { label: "Identity & Logging", text: "Anmeldung per LDAP/AD und ADFS, zentrales Logging mit Loki und Grafana Alloy" },
             { label: "Rechenzentrum", text: "Racks, Verkabelung und Hosts in NetBox geplant, Dell PowerEdge per iDRAC" },
+            { label: "GxP-Validierung", text: "risikobasierte Validierung des selbst gehosteten Passwortmanagers nach GAMP 5: Anforderungen, Validierungsplan, IQ/OQ/PQ, Arbeitsanweisungen" },
             { label: "Dokumentation", text: "SOPs für wiederkehrende Abläufe" },
           ],
         },
