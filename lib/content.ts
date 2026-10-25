@@ -112,7 +112,7 @@ export const content: Record<Lang, Content> = {
     about: {
       label: "About",
       paragraphs: [
-        "I am an IT specialist for system integration at the German Cancer Research Center (DKFZ), where I qualified in July 2026 after my apprenticeship (IHK). I work in the ODCF team on Linux, automation, Kubernetes and the HPC cluster. I also validate computerized systems in a GxP environment, starting with the department's self-hosted password manager.",
+        "I am an IT specialist for system integration at the German Cancer Research Center (DKFZ), where I qualified in July 2026 after my apprenticeship (IHK). I work in the ODCF team on Linux, automation, Kubernetes and the HPC cluster. Alongside operations, I work on computerized system validation (CSV) in a GxP environment.",
         "I get up to speed with new technology quickly and take it from first comparison to production: evaluate the options, present them to the team, implement, hand over. I trace faults systematically to their root cause instead of patching symptoms, a way of working I learned in the workshop as an automotive mechatronics technician.",
       ],
       stats: [
@@ -218,7 +218,7 @@ export const content: Record<Lang, Content> = {
     about: {
       label: "Über mich",
       paragraphs: [
-        "Ich bin Fachinformatiker für Systemintegration am Deutschen Krebsforschungszentrum (DKFZ), wo ich im Juli 2026 meine Ausbildung (IHK) abgeschlossen habe. Im ODCF-Team arbeite ich mit Linux, Automatisierung, Kubernetes und dem HPC-Cluster. Außerdem validiere ich computergestützte Systeme im GxP-Umfeld, angefangen mit dem selbst gehosteten Passwortmanager der Abteilung.",
+        "Ich bin Fachinformatiker für Systemintegration am Deutschen Krebsforschungszentrum (DKFZ), wo ich im Juli 2026 meine Ausbildung (IHK) abgeschlossen habe. Im ODCF-Team arbeite ich mit Linux, Automatisierung, Kubernetes und dem HPC-Cluster. Neben dem Betrieb arbeite ich an der Validierung computergestützter Systeme (CSV) im GxP-Umfeld.",
         "Ich arbeite mich schnell in neue Technologien ein und bringe sie vom ersten Vergleich bis in den Produktivbetrieb: Optionen bewerten, im Team vorstellen, umsetzen, übergeben. Fehler verfolge ich systematisch bis zur Ursache, statt nur Symptome zu beheben. Diese Arbeitsweise habe ich als Kfz-Mechatroniker in der Werkstatt gelernt.",
       ],
       stats: [
