@@ -34,6 +34,16 @@ const gh = "https://github.com/j551n-ncloud";
 
 const skillGroups = (de: boolean): SkillGroup[] => [
   {
+    label: de ? "Container & Virtualisierung" : "Containers & Virtualization",
+    topic: "containers-and-virtualization",
+    items: [
+      { name: "Proxmox VE & PBS", tags: "HA, Ceph, SDN, GPU passthrough" },
+      { name: "Kubernetes", tags: "k3s, Helm, " + (de ? "Operatoren" : "operators") },
+      { name: "Docker & Harbor", tags: "Docker Compose, " + (de ? "Registry, Trivy-Scans" : "registry, Trivy scanning") },
+      { name: "VMware", tags: de ? "ESXi, Migration zu Proxmox" : "ESXi, Proxmox migration" },
+    ],
+  },
+  {
     label: "Sysadmin",
     topic: "sysadmin",
     items: [
@@ -52,16 +62,6 @@ const skillGroups = (de: boolean): SkillGroup[] => [
       { name: "Python & SQL", tags: "PostgreSQL, MySQL" },
       { name: "TypeScript", tags: "Node.js, Next.js" },
       { name: de ? "KI & LLMs" : "AI & LLMs", tags: de ? "RAG, MCP-Server, selbst gehostete LLMs" : "RAG, MCP servers, self-hosted LLMs", tag: "ai" },
-    ],
-  },
-  {
-    label: de ? "Container & Virtualisierung" : "Containers & Virtualization",
-    topic: "containers-and-virtualization",
-    items: [
-      { name: "Proxmox VE & PBS", tags: "HA, Ceph, SDN, GPU passthrough" },
-      { name: "Kubernetes", tags: "k3s, Helm, " + (de ? "Operatoren" : "operators") },
-      { name: "Docker & Harbor", tags: "Docker Compose, " + (de ? "Registry, Trivy-Scans" : "registry, Trivy scanning") },
-      { name: "VMware", tags: de ? "ESXi, Migration zu Proxmox" : "ESXi, Proxmox migration" },
     ],
   },
   {
