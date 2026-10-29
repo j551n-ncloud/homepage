@@ -52,7 +52,7 @@ const personJsonLd = {
     "Linux", "Ansible", "AWX", "Kubernetes", "k3s", "Proxmox VE", "Proxmox Backup Server",
     "GitLab CI/CD", "GitHub Actions", "Docker", "Harbor", "Trivy", "LDAP", "Active Directory",
     "ADFS", "OIDC", "CrowdSec", "Grafana Loki", "Grafana Alloy", "Prometheus", "Checkmk",
-    "IBM Spectrum LSF", "IBM Elastic Storage System", "Ceph", "NetBox", "Python", "FastAPI",
+    "IBM Spectrum LSF", "IBM Elastic Storage System", "Ceph", "NetBox", "Python",
     "TypeScript", "Retrieval-augmented generation", "Model Context Protocol",
   ],
   sameAs: [
@@ -174,7 +174,7 @@ export default async function HomePage({ lang }: { lang: Lang }) {
             <Reveal className="section-label">{t.projects.label}</Reveal>
             <div>
               <Reveal>
-                <div className="skills-intro">
+                <div className="skills-intro projects-intro">
                   <h3>{t.projects.title}</h3>
                   <p>{t.projects.intro}</p>
                 </div>
@@ -266,7 +266,7 @@ export default async function HomePage({ lang }: { lang: Lang }) {
               <div className="contact-text">
                 <p>{t.contact.text}</p>
                 <div className="contact-avail">
-                  <div className="avail-dot" style={{ background: "#2a7a2a" }} />
+                  <div className="avail-dot" style={{ background: "var(--accent)" }} />
                   {t.contact.avail}
                 </div>
                 <p className="contact-location">{t.contact.location}</p>
