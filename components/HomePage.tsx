@@ -105,6 +105,8 @@ export default async function HomePage({ lang }: { lang: Lang }) {
                 <div className="hero-btns">
                   <CvLink href={CV_PATHS[lang]} lang={lang} className="btn btn-fill">{t.hero.cv}</CvLink>
                   <a href="#contact" className="btn btn-outline">{t.hero.contact}</a>
+                  <a href="https://github.com/j551n-ncloud" target="_blank" rel="noopener noreferrer" className="btn btn-outline">GitHub</a>
+                  <a href="https://www.linkedin.com/in/johannesquangminh" target="_blank" rel="noopener noreferrer" className="btn btn-outline">LinkedIn</a>
                 </div>
               </div>
             </div>

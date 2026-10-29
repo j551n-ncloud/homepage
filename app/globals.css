@@ -153,7 +153,7 @@ section { padding: 5.5rem 0; border-top: 1px solid var(--rule); }
   text-wrap: balance;
 }
 .hero-headline strong { font-weight: 600; color: #fff; }
-.hero-btns { display: flex; gap: .75rem; }
+.hero-btns { display: flex; flex-wrap: wrap; gap: .75rem; }
 
 /* ── BUTTONS ── */
 .btn {
